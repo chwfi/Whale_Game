@@ -117,6 +117,8 @@ namespace StarterAssets
         [SerializeField] private Transform _whalePos;
         [SerializeField] private Transform _homePos;
 
+        private float _clampedDistance;
+
         private bool IsCurrentDeviceMouse
         {
             get
