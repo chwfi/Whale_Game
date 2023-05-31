@@ -1,0 +1,446 @@
+fileFormatVersion: 2
+guid: 7b966bcdaced04141b62508c9ac55c94
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Antenna_L1
+  - first:
+      1: 100002
+    second: Antenna_L2
+  - first:
+      1: 100004
+    second: Antenna_R1
+  - first:
+      1: 100006
+    second: Antenna_R2
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: Center_Rotator_Bone
+  - first:
+      1: 100012
+    second: Core_bone
+  - first:
+      1: 100014
+    second: Main_Fin_L1
+  - first:
+      1: 100016
+    second: Main_Fin_L2
+  - first:
+      1: 100018
+    second: Main_Fin_R2
+  - first:
+      1: 100020
+    second: Main_FinR1
+  - first:
+      1: 100022
+    second: Pype_L1
+  - first:
+      1: 100024
+    second: Pype_L2
+  - first:
+      1: 100026
+    second: Pype_R1
+  - first:
+      1: 100028
+    second: Pype_R2
+  - first:
+      1: 100030
+    second: Small_Fin_L1
+  - first:
+      1: 100032
+    second: Small_Fin_L2
+  - first:
+      1: 100034
+    second: Small_Fin_R1
+  - first:
+      1: 100036
+    second: SmallR2
+  - first:
+      1: 100038
+    second: Spine_1
+  - first:
+      1: 100040
+    second: Spine_2
+  - first:
+      1: 100042
+    second: Spine_3
+  - first:
+      1: 100044
+    second: Spine_4
+  - first:
+      1: 100046
+    second: Spine_5
+  - first:
+      1: 100048
+    second: Spine_6
+  - first:
+      1: 100050
+    second: T1
+  - first:
+      1: 100052
+    second: T2
+  - first:
+      1: 100054
+    second: T3
+  - first:
+      1: 100056
+    second: T4
+  - first:
+      1: 100058
+    second: T5
+  - first:
+      1: 100060
+    second: T6
+  - first:
+      1: 100062
+    second: T7
+  - first:
+      1: 100064
+    second: TFL2
+  - first:
+      1: 100066
+    second: TFL_1
+  - first:
+      1: 100068
+    second: TFR1
+  - first:
+      1: 100070
+    second: TFR2
+  - first:
+      1: 100072
+    second: Whale_Animated
+  - first:
+      4: 400000
+    second: Antenna_L1
+  - first:
+      4: 400002
+    second: Antenna_L2
+  - first:
+      4: 400004
+    second: Antenna_R1
+  - first:
+      4: 400006
+    second: Antenna_R2
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: Center_Rotator_Bone
+  - first:
+      4: 400012
+    second: Core_bone
+  - first:
+      4: 400014
+    second: Main_Fin_L1
+  - first:
+      4: 400016
+    second: Main_Fin_L2
+  - first:
+      4: 400018
+    second: Main_Fin_R2
+  - first:
+      4: 400020
+    second: Main_FinR1
+  - first:
+      4: 400022
+    second: Pype_L1
+  - first:
+      4: 400024
+    second: Pype_L2
+  - first:
+      4: 400026
+    second: Pype_R1
+  - first:
+      4: 400028
+    second: Pype_R2
+  - first:
+      4: 400030
+    second: Small_Fin_L1
+  - first:
+      4: 400032
+    second: Small_Fin_L2
+  - first:
+      4: 400034
+    second: Small_Fin_R1
+  - first:
+      4: 400036
+    second: SmallR2
+  - first:
+      4: 400038
+    second: Spine_1
+  - first:
+      4: 400040
+    second: Spine_2
+  - first:
+      4: 400042
+    second: Spine_3
+  - first:
+      4: 400044
+    second: Spine_4
+  - first:
+      4: 400046
+    second: Spine_5
+  - first:
+      4: 400048
+    second: Spine_6
+  - first:
+      4: 400050
+    second: T1
+  - first:
+      4: 400052
+    second: T2
+  - first:
+      4: 400054
+    second: T3
+  - first:
+      4: 400056
+    second: T4
+  - first:
+      4: 400058
+    second: T5
+  - first:
+      4: 400060
+    second: T6
+  - first:
+      4: 400062
+    second: T7
+  - first:
+      4: 400064
+    second: TFL2
+  - first:
+      4: 400066
+    second: TFL_1
+  - first:
+      4: 400068
+    second: TFR1
+  - first:
+      4: 400070
+    second: TFR2
+  - first:
+      4: 400072
+    second: Whale_Animated
+  - first:
+      43: 4300000
+    second: Whale_Animated
+  - first:
+      74: 7400000
+    second: Swimming
+  - first:
+      74: 7400002
+    second: 3dsMax publisher
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Whale_Animated
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Swimming
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 400
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Core_bone
+        weight: 1
+      - path: Core_bone/Center_Rotator_Bone
+        weight: 1
+      - path: Core_bone/Main_Fin_L1
+        weight: 1
+      - path: Core_bone/Main_Fin_L1/Main_Fin_L2
+        weight: 1
+      - path: Core_bone/Main_FinR1
+        weight: 1
+      - path: Core_bone/Main_FinR1/Main_Fin_R2
+        weight: 1
+      - path: Core_bone/Pype_L1
+        weight: 1
+      - path: Core_bone/Pype_L2
+        weight: 1
+      - path: Core_bone/Pype_R1
+        weight: 1
+      - path: Core_bone/Pype_R2
+        weight: 1
+      - path: Core_bone/Spine_1
+        weight: 1
+      - path: Core_bone/Spine_1/Small_Fin_L1
+        weight: 1
+      - path: Core_bone/Spine_1/Small_Fin_L1/Small_Fin_L2
+        weight: 1
+      - path: Core_bone/Spine_1/Small_Fin_R1
+        weight: 1
+      - path: Core_bone/Spine_1/Small_Fin_R1/SmallR2
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Antenna_L1
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Antenna_L2
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Antenna_R1
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Antenna_R2
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5/Spine_6
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5/Spine_6/TFL_1
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5/Spine_6/TFL_1/TFL2
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5/Spine_6/TFR1
+        weight: 1
+      - path: Core_bone/Spine_1/Spine_2/Spine_3/Spine_4/Spine_5/Spine_6/TFR1/TFR2
+        weight: 1
+      - path: Core_bone/T1
+        weight: 1
+      - path: Core_bone/T2
+        weight: 1
+      - path: Core_bone/T3
+        weight: 1
+      - path: Core_bone/T4
+        weight: 1
+      - path: Core_bone/T5
+        weight: 1
+      - path: Core_bone/T6
+        weight: 1
+      - path: Core_bone/T7
+        weight: 1
+      - path: Whale_Animated
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
