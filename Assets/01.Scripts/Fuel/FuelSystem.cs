@@ -6,6 +6,7 @@ public class FuelSystem : MonoBehaviour
 {
     public static FuelSystem Instance;
     public float Gauge = 0f;
+    public float MaxFuel = 500f;
 
     private void Awake()
     {
@@ -18,7 +19,7 @@ public class FuelSystem : MonoBehaviour
 
     private void Start()
     {
-        SetGauge(1000);
+        SetGauge(MaxFuel);
     }
 
     public void SetGauge(float gauge)

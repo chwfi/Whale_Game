@@ -12,7 +12,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _outInfo;
     [SerializeField] private TextMeshProUGUI _keyInfo;
 
+    public Slider FuelSlider;
+    public Slider SpeedSlider;
+    public TextMeshProUGUI WariningText;
+
     [SerializeField] private float _fadeSpeed = 0.8f;
+    private Tweener tweener;
 
     private void Awake()
     {
@@ -21,6 +26,16 @@ public class UIManager : MonoBehaviour
             Debug.LogError("Multiple UIManager is running");
         }
         Instance = this;
+    }
+
+    private void Update()
+    {
+        FuelSlider.value = FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel;
+    }
+
+    public void BlinkText()
+    {
+        WariningText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

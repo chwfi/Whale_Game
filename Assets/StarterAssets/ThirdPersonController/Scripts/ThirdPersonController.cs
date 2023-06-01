@@ -118,6 +118,7 @@ namespace StarterAssets
         [SerializeField] private Transform _homePos;
 
         private float _clampedDistance;
+        [SerializeField] private float _maxDis = 10;
 
         private bool IsCurrentDeviceMouse
         {
@@ -171,6 +172,7 @@ namespace StarterAssets
             UpDownInZeroGravity();
             SetParent();
             ReturnToHome();
+            CheckDistance();
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -305,6 +307,16 @@ namespace StarterAssets
             {
                 transform.DOMove(_homePos.position, 3f);
                 transform.DOLookAt(_homePos.position, 1f);
+            }
+        }
+
+        private void CheckDistance()
+        {
+            float dis = Vector3.Distance(_whalePos.position, transform.position);
+
+            if (dis >= _maxDis)
+            {
+                UIManager.Instance.BlinkText();
             }
         }
 
