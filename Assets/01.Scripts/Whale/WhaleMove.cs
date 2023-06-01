@@ -7,20 +7,19 @@ public class WhaleMove : MonoBehaviour
     [SerializeField]
     private float whaleMoveSpeed = 2.5f;
 
-    Rigidbody _rigid;
+    public void SetSpeed(float speed)
+    {
+        whaleMoveSpeed = speed * 10;
+    }
 
     private void Start()
     {
-        _rigid = GetComponent<Rigidbody>();
+        whaleMoveSpeed = 2;
     }
 
     private void Update()
     {
         transform.Translate(Vector3.forward * whaleMoveSpeed * Time.deltaTime);
+        FuelSystem.Instance.Gauge -= Time.deltaTime * whaleMoveSpeed;
     }
-
-    //private void FixedUpdate()
-    //{
-    //    _rigid.MovePosition(_rigid.position + Vector3.forward * whaleMoveSpeed * Time.deltaTime);
-    //}
 }

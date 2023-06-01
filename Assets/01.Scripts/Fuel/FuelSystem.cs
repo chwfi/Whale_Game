@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FuelSystem : MonoBehaviour
 {
-    public FuelSystem Instance;
+    public static FuelSystem Instance;
     public float Gauge = 0f;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class FuelSystem : MonoBehaviour
 
     private void Start()
     {
-        SetGauge(50);
+        SetGauge(1000);
     }
 
     public void SetGauge(float gauge)

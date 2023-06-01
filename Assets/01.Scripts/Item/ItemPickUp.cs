@@ -23,7 +23,7 @@ public class ItemPickUp : MonoBehaviour
         //_name = GameObject.Find("name").GetComponentInChildren<TextMeshPro>();
         float rotRand = Random.Range(-90, 90);
         float posXRand = Random.Range(-60, 60);
-        float posYRand = Random.Range(45, 85);
+        float posYRand = Random.Range(25, 120);
         float posZRand = Random.Range(100, 1200);
         this.transform.rotation = Quaternion.Euler(new Vector3(rotRand, rotRand, rotRand));
         this.transform.position = new Vector3(posXRand, posYRand, posZRand);
