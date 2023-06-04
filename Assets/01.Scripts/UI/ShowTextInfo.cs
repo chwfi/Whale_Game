@@ -11,7 +11,7 @@ public class ShowTextInfo : MonoBehaviour
     private Transform _playerPos;
     float _dis;
 
-    ThirdPersonController _controller;
+    FirstPersonController _controller;
 
     [SerializeField] private TextMeshPro _text;
     [SerializeField] private TextMeshPro _name;
@@ -21,7 +21,7 @@ public class ShowTextInfo : MonoBehaviour
     private void Awake()
     {
         _playerPos = GameObject.Find("Player").GetComponent<Transform>();
-        _controller = GameObject.Find("Player").GetComponent<ThirdPersonController>();
+        _controller = GameObject.Find("Player").GetComponent<FirstPersonController>();
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class ShowTextInfo : MonoBehaviour
                 else
                 {
                     _panel.DOFade(1, 0.5f);
-                    _controller.LockCameraPosition = true;
+                    //_controller.LockCameraPosition = true;
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                 }    
@@ -57,7 +57,7 @@ public class ShowTextInfo : MonoBehaviour
     private void Init()
     {
         _panel.DOFade(0, 0.5f);
-        _controller.LockCameraPosition = false;
+        //_controller.LockCameraPosition = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
     }

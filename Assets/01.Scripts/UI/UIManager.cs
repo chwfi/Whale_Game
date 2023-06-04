@@ -4,20 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI _outInfo;
     [SerializeField] private TextMeshProUGUI _keyInfo;
-
     public Slider FuelSlider;
     public Slider SpeedSlider;
-    public TextMeshProUGUI WariningText;
 
+    [Header("Component")]
+    [SerializeField] private WarningText _warnText;
+
+    [Header("Value")]
     [SerializeField] private float _fadeSpeed = 0.8f;
-    private Tweener tweener;
 
     private void Awake()
     {
@@ -33,9 +37,9 @@ public class UIManager : MonoBehaviour
         FuelSlider.value = FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel;
     }
 
-    public void BlinkText()
+    public void ShowWarningText(bool value)
     {
-        WariningText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo);
+        _warnText.gameObject.SetActive(value);
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using DG.Tweening;
+
 #endif
 
 namespace StarterAssets
@@ -20,6 +22,10 @@ namespace StarterAssets
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
+
+		public AudioClip LandingAudioClip;
+		public AudioClip[] FootstepAudioClips;
+		[Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -74,6 +80,24 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		private bool _hasAnimator;
+
+		private int _animIDSpeed;
+		private int _animIDJump;
+		private int _animIDFreeFall;
+		private int _animIDSwim;
+		private int _animIDMotionSpeed;
+		private int _animIDAim;
+
+		[SerializeField] private Transform _whalePos;
+		[SerializeField] private Transform _homePos;
+
+		private float _clampedDistance;
+		[SerializeField] private float _maxDis = 10;
+
+		private float _animationBlend;
+		private Animator _animator;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -97,6 +121,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			_animator = GameObject.Find("Visual").GetComponent<Animator>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -108,6 +133,13 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+
+			_animIDSpeed = Animator.StringToHash("Speed");
+			_animIDJump = Animator.StringToHash("Jump");
+			_animIDFreeFall = Animator.StringToHash("FreeFall");
+			_animIDSwim = Animator.StringToHash("Swim");
+			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animIDAim = Animator.StringToHash("Aim");
 		}
 
 		private void Update()
@@ -115,7 +147,17 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+			UpDownInZeroGravity();
+			SetParent();
+			ReturnToHome();
+			CheckDistance();
+			Aim();
+
+            if (isZeroGravity)
+                _animator.SetBool(_animIDSwim, true);
+            else
+                _animator.SetBool(_animIDSwim, false);
+        }
 
 		private void LateUpdate()
 		{
@@ -194,16 +236,103 @@ namespace StarterAssets
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 
+			if (_hasAnimator)
+			{
+				_animator.SetFloat(_animIDSpeed, _animationBlend);
+				_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+			}
+
+			if (_speed >= 2 && _speed < 4)
+            {
+				_animator.SetFloat(_animIDSpeed, 2);
+            }
+			else if (_speed < 2)
+            {
+				_animator.SetFloat(_animIDSpeed, 0);
+            }
+			else if (_speed >= 4)
+            {
+				_animator.SetFloat(_animIDSpeed, 4);
+            }
+
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
+
+		private void Aim()
+        {
+			if (Input.GetKey(KeyCode.F))
+            {
+				_animator.SetBool(_animIDAim, true);
+            }
+			else
+				_animator.SetBool(_animIDAim, false);
+		}
+
+		private void ReturnToHome()
+		{
+			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
+			{
+				transform.DOMove(_homePos.position, 3f);
+				//transform.DOLookAt(_homePos.position, 1f);
+			}
+		}
+
+		private void CheckDistance()
+		{
+			float dis = Vector3.Distance(_whalePos.position, transform.position);
+			if (dis >= _maxDis)
+			{
+				UIManager.Instance.ShowWarningText(true);
+			}
+			else
+				UIManager.Instance.ShowWarningText(false);
+		}
+
+		public float timer;
+		public bool isZeroGravity = false;
+
+		[SerializeField] private float zeroGravity = -0.01f;
+		[SerializeField] private float maxTime = 3f;
 
 		private void JumpAndGravity()
 		{
 			if (Grounded)
 			{
+				UIManager.Instance.OffSpaceInfo();
+				Gravity = -12f;
+				timer = 0f;
+				isZeroGravity = false;
+			}
+			else if (isZeroGravity)
+			{
+				UIManager.Instance.InSpaceInfo();
+				Gravity = zeroGravity;
+			}
+
+			if (!Grounded)
+			{
+				if (!isZeroGravity)
+					timer += Time.unscaledDeltaTime;
+				if (timer >= maxTime)
+				{
+					isZeroGravity = true;
+					_verticalVelocity = Mathf.Sqrt(JumpHeight * 0f * Gravity);
+					timer = 0f;
+				}
+			}
+
+			if (Grounded)
+			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
+
+				// update animator if using character
+				if (_hasAnimator)
+				{
+                    _animator.SetBool(_animIDJump, false);
+                    _animator.SetBool(_animIDFreeFall, false);
+                }
 
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
@@ -216,6 +345,12 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+
+					// update animator if using character
+					if (_hasAnimator)
+					{
+                        _animator.SetBool(_animIDJump, true);
+                    }
 				}
 
 				// jump timeout
@@ -234,6 +369,14 @@ namespace StarterAssets
 				{
 					_fallTimeoutDelta -= Time.deltaTime;
 				}
+				else
+				{
+					// update animator if using character
+					if (_hasAnimator)
+					{
+                        _animator.SetBool(_animIDFreeFall, true);
+                    }
+				}
 
 				// if we are not grounded, do not jump
 				_input.jump = false;
@@ -246,11 +389,68 @@ namespace StarterAssets
 			}
 		}
 
+		private void SetParent()
+		{
+			if (Grounded)
+				transform.SetParent(_whalePos);
+			else if (isZeroGravity)
+				transform.SetParent(null);
+		}
+
+		private void UpDownInZeroGravity()
+		{
+			float _upDownSpeed = 1.4f;
+			Vector3 upDir = Vector3.up * _upDownSpeed;
+			Vector3 downDir = Vector3.down * _upDownSpeed;
+
+			if (isZeroGravity && Input.GetKey(KeyCode.Space))
+			{
+				_verticalVelocity = upDir.sqrMagnitude;
+                _animator.SetFloat(_animIDSpeed, 2);
+            }
+			else if (isZeroGravity && Input.GetKeyUp(KeyCode.Space))
+			{
+				_verticalVelocity = Vector3.zero.sqrMagnitude;
+                _animator.SetFloat(_animIDSpeed, 0);
+            }
+
+			if (isZeroGravity && Input.GetKey(KeyCode.LeftControl))
+			{
+				_verticalVelocity = -downDir.sqrMagnitude;
+                _animator.SetFloat(_animIDSpeed, 2);
+            }
+			else if (isZeroGravity && Input.GetKeyUp(KeyCode.LeftControl))
+			{
+				_verticalVelocity = Vector3.zero.sqrMagnitude;
+                _animator.SetFloat(_animIDSpeed, 0);
+            }
+		}
+
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
 			if (lfAngle < -360f) lfAngle += 360f;
 			if (lfAngle > 360f) lfAngle -= 360f;
 			return Mathf.Clamp(lfAngle, lfMin, lfMax);
+		}
+
+		private void OnFootstep(AnimationEvent animationEvent)
+		{
+			if (animationEvent.animatorClipInfo.weight > 0.5f)
+			{
+				if (FootstepAudioClips.Length > 0)
+				{
+					var index = Random.Range(0, FootstepAudioClips.Length);
+					AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+				}
+			}
+		}
+
+		private void OnLand(AnimationEvent animationEvent)
+		{
+			if (animationEvent.animatorClipInfo.weight > 0.5f)
+			{
+				AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+			}
 		}
 
 		private void OnDrawGizmosSelected()

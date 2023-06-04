@@ -6,7 +6,7 @@ using StarterAssets;
 public class RopeSystem : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
-    private ThirdPersonController _controller;
+    private FirstPersonController _controller;
 
     [SerializeField] private Transform _originPos;
     [SerializeField] private Transform _startPos;
@@ -14,7 +14,7 @@ public class RopeSystem : MonoBehaviour
     private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        _controller = GetComponent<ThirdPersonController>();
+        _controller = GetComponent<FirstPersonController>();
     }
 
     private void Update()
