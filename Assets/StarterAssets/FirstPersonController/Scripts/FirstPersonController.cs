@@ -97,6 +97,7 @@ namespace StarterAssets
 
 		private float _animationBlend;
 		private Animator _animator;
+		private PlayerStatManager _playerManager;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -122,6 +123,7 @@ namespace StarterAssets
 		private void Start()
 		{
 			_animator = GameObject.Find("Visual").GetComponent<Animator>();
+			_playerManager = GetComponent<PlayerStatManager>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -300,6 +302,7 @@ namespace StarterAssets
 			if (Grounded)
 			{
 				UIManager.Instance.OffSpaceInfo();
+				_playerManager.grounded = true;
 				Gravity = -12f;
 				timer = 0f;
 				isZeroGravity = false;
@@ -307,6 +310,7 @@ namespace StarterAssets
 			else if (isZeroGravity)
 			{
 				UIManager.Instance.InSpaceInfo();
+				_playerManager.grounded = false;
 				Gravity = zeroGravity;
 			}
 

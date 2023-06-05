@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using System;
-using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,8 +10,12 @@ public class UIManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _outInfo;
     [SerializeField] private TextMeshProUGUI _keyInfo;
+    [SerializeField] private TextMeshProUGUI _oxygenText;
     public Slider FuelSlider;
     public Slider SpeedSlider;
+    public Image OxygenSlider;
+    public Image HpSlider;
+    public Image ManaSlider;
 
     [Header("Component")]
     [SerializeField] private WarningText _warnText;
@@ -35,6 +35,18 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         FuelSlider.value = FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel;
+    }
+
+    public void SetStatUI(float hp, float mana, float ox)
+    {
+        HpSlider.fillAmount = hp / 100;
+        ManaSlider.fillAmount = mana / 50;
+        OxygenSlider.fillAmount = ox / 100;
+    }
+
+    public void SetOxygenText(float value)
+    {
+        _oxygenText.text = (value / 100).ToString("P0");
     }
 
     public void ShowWarningText(bool value)
