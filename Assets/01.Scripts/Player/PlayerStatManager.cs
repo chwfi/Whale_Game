@@ -56,7 +56,7 @@ public class PlayerStatManager : MonoBehaviour
         if (grounded)
         {
             _currentOxygen += Time.unscaledDeltaTime * _increaseSpeed;
-            _currentHp += Time.deltaTime * _increaseSpeed;
+            if (_currentOxygen >= _playerStats.MaxOxygen) _currentHp += Time.deltaTime * _increaseSpeed;
         }
     }
 
@@ -83,6 +83,11 @@ public class PlayerStatManager : MonoBehaviour
     {
         UIManager.Instance.SetStatUI(_currentHp, _currentMana, _currentOxygen);
         UIManager.Instance.SetOxygenText(_currentOxygen);
+
+        if (_currentOxygen <= 25)
+            UIManager.Instance.ShowWarningText(1);
+        else
+            UIManager.Instance.ShowWarningText(0);
     }
 
     private void OnDead()

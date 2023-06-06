@@ -285,10 +285,10 @@ namespace StarterAssets
 			float dis = Vector3.Distance(_whalePos.position, transform.position);
 			if (dis >= _maxDis)
 			{
-				UIManager.Instance.ShowWarningText(true);
+				//UIManager.Instance.ShowWarningText(1);
 			}
-			else
-				UIManager.Instance.ShowWarningText(false);
+			//else
+				//UIManager.Instance.ShowWarningText(0);
 		}
 
 		public float timer;

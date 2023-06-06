@@ -11,14 +11,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _outInfo;
     [SerializeField] private TextMeshProUGUI _keyInfo;
     [SerializeField] private TextMeshProUGUI _oxygenText;
+    [SerializeField] private CanvasGroup _warnInfo;
+    [SerializeField] private CanvasGroup _inventory;
     public Slider FuelSlider;
     public Slider SpeedSlider;
     public Image OxygenSlider;
     public Image HpSlider;
     public Image ManaSlider;
 
-    [Header("Component")]
-    [SerializeField] private WarningText _warnText;
+    private TextMeshProUGUI[] _countText;
+    private TextMeshProUGUI[] _nameText;
 
     [Header("Value")]
     [SerializeField] private float _fadeSpeed = 0.8f;
@@ -49,9 +51,15 @@ public class UIManager : MonoBehaviour
         _oxygenText.text = (value / 100).ToString("P0");
     }
 
-    public void ShowWarningText(bool value)
+    public void ShowWarningText(int value)
     {
-        _warnText.gameObject.SetActive(value);
+        _warnInfo.DOFade(value, 1); 
+    }
+
+    public void SetInventoryUI(int count, string name, int num)
+    {
+        _countText[num].text = count.ToString();
+        _nameText[num].text = name;
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

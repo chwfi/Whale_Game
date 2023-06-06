@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39979b9ffffafe4399339194ff0ebc3, type: 3}
   m_Name: CooperRock
   m_EditorClassIdentifier: 
-  id: 4
+  id: 1
   itemName: CooperRock
   value: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d3ba55241be6bba40b92f6e3ab8f05d0, type: 3}
