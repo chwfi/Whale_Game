@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using StarterAssets;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,17 +14,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _oxygenText;
     [SerializeField] private CanvasGroup _warnInfo;
     [SerializeField] private CanvasGroup _inventory;
+    [SerializeField] private TextMeshProUGUI[] _countText;
+    [SerializeField] private TextMeshProUGUI[] _nameText;
     public Slider FuelSlider;
     public Slider SpeedSlider;
     public Image OxygenSlider;
     public Image HpSlider;
     public Image ManaSlider;
 
-    private TextMeshProUGUI[] _countText;
-    private TextMeshProUGUI[] _nameText;
-
     [Header("Value")]
     [SerializeField] private float _fadeSpeed = 0.8f;
+
+    private FirstPersonController _controller;
 
     private void Awake()
     {
@@ -32,6 +34,11 @@ public class UIManager : MonoBehaviour
             Debug.LogError("Multiple UIManager is running");
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _controller = GameObject.Find("Player").GetComponent<FirstPersonController>();
     }
 
     private void Update()
@@ -60,6 +67,17 @@ public class UIManager : MonoBehaviour
     {
         _countText[num].text = count.ToString();
         _nameText[num].text = name;
+    }
+
+    public void ShowInventoryUI(int value)
+    {
+        if (_inventory.alpha <= 0) value = 1;
+        else value = 0;
+
+        if (value == 1) _controller.CanRotateCam = false;
+        else _controller.CanRotateCam = true;
+
+        _inventory.DOFade(value, _fadeSpeed);
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CooperRock
   m_EditorClassIdentifier: 
   id: 1
-  itemName: CooperRock
+  itemName: "\uAD6C\uB9AC \uAD11\uC11D"
   value: 1
   icon: {fileID: 21300000, guid: d3ba55241be6bba40b92f6e3ab8f05d0, type: 3}

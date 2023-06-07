@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: c05e63dc7a1891a4e8b862b4144b8722, type: 2}
-  _collectCooltime: 0.1
+  _collectCooltime: 1.25
   _maxDistance: 2.25
   _text: {fileID: 7736828382715841258}
   _name: {fileID: 2424367003921093781}

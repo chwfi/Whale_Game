@@ -41,7 +41,7 @@ public class ShowTextInfo : MonoBehaviour
                 else
                 {
                     _panel.DOFade(1, 0.5f);
-                    //_controller.LockCameraPosition = true;
+                    _controller.CanRotateCam = false;
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                 }    
@@ -57,7 +57,7 @@ public class ShowTextInfo : MonoBehaviour
     private void Init()
     {
         _panel.DOFade(0, 0.5f);
-        //_controller.LockCameraPosition = false;
+        _controller.CanRotateCam = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
     }

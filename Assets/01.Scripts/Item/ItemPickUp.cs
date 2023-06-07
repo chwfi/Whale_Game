@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using StarterAssets;
 
 public class ItemPickUp : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ItemPickUp : MonoBehaviour
 
     [SerializeField] private float _collectCooltime = 0.5f;
     [SerializeField] private float _maxDistance = 3f;
-    private Transform _playerPos;
+    private FirstPersonController _player;
     float _dis;
 
     [SerializeField] private TextMeshPro _text;
@@ -18,9 +19,8 @@ public class ItemPickUp : MonoBehaviour
 
     private void Start()
     {
-        _playerPos = GameObject.Find("Player").GetComponent<Transform>();
-        //_text = GetComponentInChildren<TextMeshPro>();
-        //_name = GameObject.Find("name").GetComponentInChildren<TextMeshPro>();
+        _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
+        
         float rotRand = Random.Range(-90, 90);
         float posXRand = Random.Range(-60, 60);
         float posYRand = Random.Range(25, 120);
@@ -37,13 +37,16 @@ public class ItemPickUp : MonoBehaviour
 
     private void Update()
     {
-        _dis = Vector3.Distance(transform.position, _playerPos.position);
+        _dis = Vector3.Distance(transform.position, _player.gameObject.transform.position);
 
         if (_dis <= _maxDistance)
         {
             UIManager.Instance.ShowInfo(_text, _name);
             if (Input.GetKeyDown(KeyCode.F))
+            {
                 StartCoroutine(CollectResoruces());
+                _player.PickupAnimation();
+            }      
         }
         else
             UIManager.Instance.OffInfo(_text, _name);
@@ -51,9 +54,8 @@ public class ItemPickUp : MonoBehaviour
 
     private IEnumerator CollectResoruces()
     {
+       // _player.PickupAnimation();
         yield return new WaitForSeconds(_collectCooltime);
-        Debug.Log("수집");
-        //수집 애니메이션 실행
         Pickup();
     }
 }

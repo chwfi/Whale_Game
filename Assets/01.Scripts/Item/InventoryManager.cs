@@ -16,6 +16,11 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab)) UIManager.Instance.ShowInventoryUI(1);
+    }
+
     public void Add(ItemSO item)
     {
         Manage(item);
@@ -31,12 +36,12 @@ public class InventoryManager : MonoBehaviour
         if (item.id == 1)
         {
             CooperCount += item.value;
-            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 1);
+            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 0);
         }
         else if (item.id == 2)
         {
             TitanumCount += item.value;
-            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 2);
+            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 1);
         }
     }
 }

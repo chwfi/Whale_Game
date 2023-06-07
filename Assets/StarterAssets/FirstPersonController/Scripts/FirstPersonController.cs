@@ -81,13 +81,14 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
+		public bool CanRotateCam = true;
 
 		private int _animIDSpeed;
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDSwim;
 		private int _animIDMotionSpeed;
-		private int _animIDAim;
+		private int _animIDPickup;
 
 		[SerializeField] private Transform _whalePos;
 		[SerializeField] private Transform _homePos;
@@ -141,7 +142,7 @@ namespace StarterAssets
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDSwim = Animator.StringToHash("Swim");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-			_animIDAim = Animator.StringToHash("Aim");
+			_animIDPickup = Animator.StringToHash("Pickup");
 		}
 
 		private void Update()
@@ -152,8 +153,7 @@ namespace StarterAssets
 			UpDownInZeroGravity();
 			SetParent();
 			ReturnToHome();
-			CheckDistance();
-			Aim();
+			//PickupAnimation();
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -163,7 +163,8 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (CanRotateCam)
+				CameraRotation();
 		}
 
 		private void GroundedCheck()
@@ -261,34 +262,19 @@ namespace StarterAssets
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
-		private void Aim()
+		public void PickupAnimation()
         {
-			if (Input.GetKey(KeyCode.F))
-            {
-				_animator.SetBool(_animIDAim, true);
-            }
-			else
-				_animator.SetBool(_animIDAim, false);
+			_animator.SetTrigger(_animIDPickup);
 		}
 
 		private void ReturnToHome()
 		{
+			float dis = Vector3.Distance(_whalePos.position, transform.position);
+
 			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
 			{
-				transform.DOMove(_homePos.position, 3f);
-				//transform.DOLookAt(_homePos.position, 1f);
+				transform.DOMove(_homePos.position, dis / 25f);
 			}
-		}
-
-		private void CheckDistance()
-		{
-			float dis = Vector3.Distance(_whalePos.position, transform.position);
-			if (dis >= _maxDis)
-			{
-				//UIManager.Instance.ShowWarningText(1);
-			}
-			//else
-				//UIManager.Instance.ShowWarningText(0);
 		}
 
 		public float timer;

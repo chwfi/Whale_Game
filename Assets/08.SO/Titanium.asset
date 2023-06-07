@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Titanium
   m_EditorClassIdentifier: 
   id: 2
-  itemName: Titanium
+  itemName: "\uD2F0\uD0C0\uB284 \uAD11\uC11D"
   value: 3
   icon: {fileID: 0}
