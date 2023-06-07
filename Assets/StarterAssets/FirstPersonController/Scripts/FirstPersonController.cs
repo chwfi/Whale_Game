@@ -89,6 +89,7 @@ namespace StarterAssets
 		private int _animIDSwim;
 		private int _animIDMotionSpeed;
 		private int _animIDPickup;
+		private int _animIDHold;
 
 		[SerializeField] private Transform _whalePos;
 		[SerializeField] private Transform _homePos;
@@ -99,6 +100,7 @@ namespace StarterAssets
 		private float _animationBlend;
 		private Animator _animator;
 		private PlayerStatManager _playerManager;
+		private ScanGun _scanGun;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -124,6 +126,7 @@ namespace StarterAssets
 		private void Start()
 		{
 			_animator = GameObject.Find("Visual").GetComponent<Animator>();
+			_scanGun = GetComponent<ScanGun>();
 			_playerManager = GetComponent<PlayerStatManager>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -143,6 +146,7 @@ namespace StarterAssets
 			_animIDSwim = Animator.StringToHash("Swim");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDPickup = Animator.StringToHash("Pickup");
+			_animIDHold = Animator.StringToHash("Hold");
 		}
 
 		private void Update()
@@ -154,6 +158,17 @@ namespace StarterAssets
 			SetParent();
 			ReturnToHome();
 			//PickupAnimation();
+
+			if (Input.GetMouseButton(1))
+            {
+				GunHoldAnimation(true);
+				_scanGun.canShoot = true;
+            }
+			else if (Input.GetMouseButtonUp(1))
+            {
+				GunHoldAnimation(false);
+				_scanGun.canShoot = false;
+			}
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -265,6 +280,11 @@ namespace StarterAssets
 		public void PickupAnimation()
         {
 			_animator.SetTrigger(_animIDPickup);
+		}
+
+		public void GunHoldAnimation(bool value)
+		{
+			_animator.SetBool(_animIDHold, value);
 		}
 
 		private void ReturnToHome()

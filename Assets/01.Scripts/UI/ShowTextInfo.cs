@@ -32,7 +32,7 @@ public class ShowTextInfo : MonoBehaviour
         {
             UIManager.Instance.ShowInfo(_text, _name);
             
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (_panel.alpha >= 0.5f)
                 {

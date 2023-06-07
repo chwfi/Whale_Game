@@ -14,6 +14,8 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        UIManager.Instance.LockUnlockInventoryUI("???", 0);
+        UIManager.Instance.LockUnlockInventoryUI("???", 1);
     }
 
     private void Update()
@@ -36,12 +38,12 @@ public class InventoryManager : MonoBehaviour
         if (item.id == 1)
         {
             CooperCount += item.value;
-            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 0);
+            UIManager.Instance.SetInventoryUI(CooperCount, item.itemName, 0);
         }
         else if (item.id == 2)
         {
             TitanumCount += item.value;
-            UIManager.Instance.SetInventoryUI(item.value, item.itemName, 1);
+            UIManager.Instance.SetInventoryUI(TitanumCount, item.itemName, 1);
         }
     }
 }

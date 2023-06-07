@@ -10,16 +10,19 @@ public class ItemPickUp : MonoBehaviour
     public ItemSO Item;
 
     [SerializeField] private float _collectCooltime = 0.5f;
-    [SerializeField] private float _maxDistance = 3f;
-    private FirstPersonController _player;
-    float _dis;
 
     [SerializeField] private TextMeshPro _text;
     [SerializeField] private TextMeshPro _name;
 
+    public bool CanMining = false;
+
+    float _timer;
+    [SerializeField] private float _maxTimer = 5f;
+    [SerializeField] private float _miningSpeed = 2f;
+
     private void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
+        _timer = _maxTimer;
         
         float rotRand = Random.Range(-90, 90);
         float posXRand = Random.Range(-60, 60);
@@ -37,19 +40,31 @@ public class ItemPickUp : MonoBehaviour
 
     private void Update()
     {
-        _dis = Vector3.Distance(transform.position, _player.gameObject.transform.position);
+        if (!CanMining) return;
 
-        if (_dis <= _maxDistance)
+        if (Input.GetMouseButton(0))
         {
-            UIManager.Instance.ShowInfo(_text, _name);
-            if (Input.GetKeyDown(KeyCode.F))
+            _timer -= Time.unscaledDeltaTime * _miningSpeed;
+            if (_timer <= 0)
             {
                 StartCoroutine(CollectResoruces());
-                _player.PickupAnimation();
-            }      
+                _timer = _maxTimer;
+            }
         }
         else
-            UIManager.Instance.OffInfo(_text, _name);
+            _timer = _maxTimer;
+    }
+
+    public void SetText()
+    {
+        UIManager.Instance.ShowInfo(_text, _name);
+        StartCoroutine(Cooltime());
+    }
+
+    private IEnumerator Cooltime()
+    {
+        yield return new WaitForSeconds(1f);
+        UIManager.Instance.OffInfo(_text, _name);
     }
 
     private IEnumerator CollectResoruces()

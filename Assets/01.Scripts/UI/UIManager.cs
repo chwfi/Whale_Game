@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup _inventory;
     [SerializeField] private TextMeshProUGUI[] _countText;
     [SerializeField] private TextMeshProUGUI[] _nameText;
+    [SerializeField] private Image[] _lockImage;
     public Slider FuelSlider;
     public Slider SpeedSlider;
     public Image OxygenSlider;
@@ -65,7 +66,13 @@ public class UIManager : MonoBehaviour
 
     public void SetInventoryUI(int count, string name, int num)
     {
+        _lockImage[num].gameObject.SetActive(false);
         _countText[num].text = count.ToString();
+        _nameText[num].text = name;
+    }
+
+    public void LockUnlockInventoryUI(string name, int num)
+    {
         _nameText[num].text = name;
     }
 
@@ -77,7 +84,7 @@ public class UIManager : MonoBehaviour
         if (value == 1) _controller.CanRotateCam = false;
         else _controller.CanRotateCam = true;
 
-        _inventory.DOFade(value, _fadeSpeed);
+        _inventory.DOFade(value, 0.25f);
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

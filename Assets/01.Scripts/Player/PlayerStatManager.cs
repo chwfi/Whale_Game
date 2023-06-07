@@ -17,7 +17,6 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private float _oxDecreaseSpeed = 2f;
     [SerializeField] private float _hpDecreaseSpeed = 4f;
     [SerializeField] private float _manaDecreaseSpeed = 3f;
-
     [SerializeField] private float _increaseSpeed = 10f;
  
     public UnityEvent OnDeadTrigger = null;
