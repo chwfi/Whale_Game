@@ -69,7 +69,6 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
-
 	
 #if ENABLE_INPUT_SYSTEM
 		private PlayerInput _playerInput;
@@ -90,6 +89,7 @@ namespace StarterAssets
 		private int _animIDMotionSpeed;
 		private int _animIDPickup;
 		private int _animIDHold;
+		private int _animIDSwing;
 
 		[SerializeField] private Transform _whalePos;
 		[SerializeField] private Transform _homePos;
@@ -100,7 +100,9 @@ namespace StarterAssets
 		private float _animationBlend;
 		private Animator _animator;
 		private PlayerStatManager _playerManager;
-		private ScanGun _scanGun;
+
+
+		public bool CanMove = true;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -126,7 +128,6 @@ namespace StarterAssets
 		private void Start()
 		{
 			_animator = GameObject.Find("Visual").GetComponent<Animator>();
-			_scanGun = GetComponent<ScanGun>();
 			_playerManager = GetComponent<PlayerStatManager>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -153,22 +154,12 @@ namespace StarterAssets
 		{
 			JumpAndGravity();
 			GroundedCheck();
-			Move();
+			if (CanMove)
+				Move();
 			UpDownInZeroGravity();
 			SetParent();
 			ReturnToHome();
 			//PickupAnimation();
-
-			if (Input.GetMouseButton(1))
-            {
-				GunHoldAnimation(true);
-				_scanGun.canShoot = true;
-            }
-			else if (Input.GetMouseButtonUp(1))
-            {
-				GunHoldAnimation(false);
-				_scanGun.canShoot = false;
-			}
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -282,9 +273,9 @@ namespace StarterAssets
 			_animator.SetTrigger(_animIDPickup);
 		}
 
-		public void GunHoldAnimation(bool value)
+		public void SwingHammerAnimation()
 		{
-			_animator.SetBool(_animIDHold, value);
+			_animator.SetTrigger(_animIDSwing);
 		}
 
 		private void ReturnToHome()

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.VFX;
+using StarterAssets;
 
 public class ScanGun : MonoBehaviour
 {
@@ -9,26 +10,33 @@ public class ScanGun : MonoBehaviour
     [SerializeField] private float _distance;
 
     private Transform _playerPos;
-    private LineRenderer _lineRenderer;
+    public LineRenderer _lineRenderer;
     private RaycastHit hit;
 
     ItemPickUp _itemPickup;
 
-    public bool canShoot = false;
+    public bool canShoot = true;
 
     public Camera playerCamera;
     public Transform laserOrigin;
 
+    [SerializeField] private VisualEffect _beam;
+    public VisualEffect _hitEffect;
+
     private void Start()
     {
-        _lineRenderer = GetComponent<LineRenderer>();
         _playerPos = GetComponent<Transform>();
     }
 
     private void Update()
     {
-        if (!canShoot) return;
-        ShootRay();
+        if (!canShoot)
+        {
+            _hitEffect.Stop();
+            _lineRenderer.enabled = false;
+            return;
+        }
+        ShootRay();        
     }
 
     public void ShootRay()
@@ -40,21 +48,27 @@ public class ScanGun : MonoBehaviour
                 _itemPickup = hit.collider.gameObject.GetComponent<ItemPickUp>();
                 _itemPickup.CanMining = true;
                 _itemPickup.SetText();
+                if (!_itemPickup.isBig) return;
                 if (Input.GetMouseButton(0))
                 {
                     _lineRenderer.SetPosition(0, laserOrigin.position);
                     _lineRenderer.SetPosition(1, hit.point);
+                    _hitEffect.enabled = true;
                     _lineRenderer.enabled = true;
+                    _hitEffect.transform.position = hit.point;
                 }
-                else if (hit.collider.gameObject == null)
-                    _lineRenderer.enabled = false;
                 else
                 {
+                    _hitEffect.enabled = false;
                     _lineRenderer.enabled = false;
+                    _hitEffect.Play();
                 }
             }
-            else
-                _itemPickup.CanMining = false;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _hitEffect.Stop();
+            }
         }
     }
 }

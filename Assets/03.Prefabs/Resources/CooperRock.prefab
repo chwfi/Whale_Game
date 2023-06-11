@@ -165,9 +165,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: eb5aac229db8cc044877e85c0a169c8f, type: 2}
   _collectCooltime: 1.25
-  _maxDistance: 2
+  _maxDis: 2
   _text: {fileID: 4172263719863452227}
   _name: {fileID: 6436486947399241186}
+  CanMining: 0
+  _maxTimer: 5
+  _miningSpeed: 2
+  isBig: 0
 --- !u!1 &4172263719863452225
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC88C\uD074\uB9AD\uD558\uC5EC \uCC44\uAD74"
+  m_text: "F\uD0A4\uB97C \uB20C\uB7EC \uC218\uC9D1 "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}
   m_sharedMaterial: {fileID: 3159059788667797647, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}
