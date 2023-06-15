@@ -8,14 +8,19 @@ public class SpawnResources : MonoBehaviour
 
     private void Start()
     {
-        for (int j = 0; j < 75; j++)
+        for (int j = 0; j < 150; j++)
         {
             Instantiate(Resources[0]);        
         }
 
-        for (int j = 0; j < 55; j++)
+        for (int j = 0; j < 75; j++)
         {
             Instantiate(Resources[1]);
+        }
+
+        for (int j = 0; j < 25; j++)
+        {
+            Instantiate(Resources[2]);
         }
 
         //for (int i = 0; i < 10; i++)

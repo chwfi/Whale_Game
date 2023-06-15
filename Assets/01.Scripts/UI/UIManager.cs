@@ -26,6 +26,13 @@ public class UIManager : MonoBehaviour
     public Image HpSlider;
     public Image ManaSlider;
 
+    [Header("ProductUI")]
+    [SerializeField] private TextMeshProUGUI[] _countTexts;
+    [SerializeField] private TextMeshProUGUI _resourceWarnText;
+
+    [Header("FuelUI")]
+    [SerializeField] private TextMeshProUGUI _fuelCountText;
+
     public bool isShowing = false;
 
     [Header("Value")]
@@ -66,6 +73,11 @@ public class UIManager : MonoBehaviour
                 ShowInventoryUI();
             }
         }
+
+        _countText[0].text = InventoryManager.Instance.CooperCount.ToString();
+        _countText[1].text = InventoryManager.Instance.TitanumCount.ToString();
+
+        SetProductCountUI();
     }
 
     public void SetStatUI(float hp, float mana, float ox)
@@ -85,9 +97,8 @@ public class UIManager : MonoBehaviour
         _warnInfo.DOFade(value, 1); 
     }
 
-    public void SetInventoryUI(int count, string name, int num)
+    public void SetInventoryUI(string name, int num)
     {
-        _countText[num].text = count.ToString();
         _nameText[num].text = name;
     }
 
@@ -107,6 +118,26 @@ public class UIManager : MonoBehaviour
         _controller.CanMove = true;
         isShowing = false;
         _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.75f);
+    }
+
+    public void SetProductCountUI()
+    {
+        _countTexts[0].text = InventoryManager.Instance.CooperCount.ToString() + "/3";
+        _countTexts[1].text = InventoryManager.Instance.TitanumCount.ToString() + "/3";
+        _countTexts[2].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/3";
+        _countTexts[3].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/1";
+        _countTexts[4].text = InventoryManager.Instance.SolutionCount.ToString() + "/2";
+        _countTexts[5].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";
+    }
+
+    public void ShowProductWarnText(bool value)
+    {
+        _resourceWarnText.gameObject.SetActive(value);
+    }
+
+    public void ShowFuelCountUI(int count)
+    {
+        _fuelCountText.text = "연료 넣기 " + count.ToString() + "/1";
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

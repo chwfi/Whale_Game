@@ -19,7 +19,7 @@ public class ShowTextInfo : MonoBehaviour
     [SerializeField] private CanvasGroup _panel;
 
     [SerializeField] private GameObject _inventoryPanel;
-    [SerializeField] private TextMeshPro _shownText;
+    [SerializeField] private GameObject _table;
 
     public bool isShowing = false;
 
@@ -46,13 +46,11 @@ public class ShowTextInfo : MonoBehaviour
                 }
                 else
                 {
+                    _table.SetActive(false);
                     _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
                     {
                         isShowing = true;
                         _panel.gameObject.SetActive(true);
-                        _controller.CanRotateCam = false;
-                        Cursor.lockState = CursorLockMode.Confined;
-                        Cursor.visible = true;
                     });
                 }  
             }
@@ -66,9 +64,7 @@ public class ShowTextInfo : MonoBehaviour
 
     private void Init()
     {
-        _controller.CanRotateCam = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = false;
+        _table.SetActive(true);
         isShowing = false;
         _panel.gameObject.SetActive(false);
         _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.25f);

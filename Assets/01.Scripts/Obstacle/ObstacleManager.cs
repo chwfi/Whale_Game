@@ -22,7 +22,7 @@ public class ObstacleManager : MonoBehaviour
 
         float posXRand = Random.Range(-6, 6);
         float posYRand = Random.Range(50, 63);
-        float posZRand = Random.Range(450, 2500);
+        float posZRand = Random.Range(800, 2500);
         float rotRand = Random.Range(-90, 90);
         this.transform.rotation = Quaternion.Euler(new Vector3(rotRand, rotRand, rotRand));
         this.transform.position = new Vector3(posXRand, posYRand, posZRand);

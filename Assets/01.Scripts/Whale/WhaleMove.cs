@@ -26,7 +26,7 @@ public class WhaleMove : MonoBehaviour
         transform.Translate(Vector3.forward * whaleMoveSpeed * Time.deltaTime);
         _kmhText.text = (whaleMoveSpeed * 10).ToString("F0") + "Km/h";
 
-        FuelSystem.Instance.Gauge -= Time.unscaledDeltaTime * whaleMoveSpeed;
+        FuelSystem.Instance.Gauge -= Time.unscaledDeltaTime * 0.75f * whaleMoveSpeed;
 
         if (FuelSystem.Instance.Gauge <= 0)
         {
@@ -42,11 +42,6 @@ public class WhaleMove : MonoBehaviour
         if (whaleMoveSpeed <= minSpeed)
         {
             whaleMoveSpeed = minSpeed;
-        }
-
-        if (Input.GetKeyDown(KeyCode.J)) //임시 테스트 코드
-        {
-            FuelSystem.Instance.Gauge += 70;
         }
     }
 }

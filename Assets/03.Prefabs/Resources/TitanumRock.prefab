@@ -286,14 +286,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: c05e63dc7a1891a4e8b862b4144b8722, type: 2}
   _collectCooltime: 0.5
-  _textMaxdis: 15
+  _textMaxdis: 25
   _mineMaxdis: 3
   _text: {fileID: 7736828382715841258}
   _name: {fileID: 2424367003921093781}
   CanMining: 0
   _maxTimer: 5
   _miningSpeed: 2
-  _rigid: []
+  _zPosRandMinValue: 200
+  _zPosRandMaxValue: 2000
 --- !u!1 &7736828382715841256
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.263, y: 0}
+  m_AnchoredPosition: {x: 0.3414, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7736828382715841259
@@ -394,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "F\uD0A4\uB97C \uB20C\uB7EC \uC218\uC9D1 "
+  m_text: "\uAC00\uAE4C\uC774\uC11C F\uD0A4\uB97C \uB20C\uB7EC \uC218\uC9D1 "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}
   m_sharedMaterial: {fileID: 3159059788667797647, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}

@@ -24,6 +24,9 @@ public class ItemManager : MonoBehaviour
 
     private FirstPersonController _player;
 
+    [SerializeField] private float _zPosRandMinValue = 100f;
+    [SerializeField] private float _zPosRandMaxValue = 1200f;
+
     MeshRenderer _rend;
 
     private void Start()
@@ -33,9 +36,9 @@ public class ItemManager : MonoBehaviour
         _rend = GetComponent<MeshRenderer>();
 
         float rotRand = Random.Range(-90, 90);
-        float posXRand = Random.Range(-75, 75);
-        float posYRand = Random.Range(20, 100);
-        float posZRand = Random.Range(100, 1200);
+        float posXRand = Random.Range(-60, 60);
+        float posYRand = Random.Range(20, 80);
+        float posZRand = Random.Range(_zPosRandMinValue, _zPosRandMaxValue);
         this.transform.rotation = Quaternion.Euler(new Vector3(rotRand, rotRand, rotRand));
         this.transform.position = new Vector3(posXRand, posYRand, posZRand);
     }
