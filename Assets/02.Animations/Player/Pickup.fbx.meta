@@ -36,11 +36,11 @@ ModelImporter:
       name: pickup
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
+      firstFrame: 10.5
       lastFrame: 72
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.1
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -49,7 +49,7 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

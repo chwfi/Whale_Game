@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 2
   itemName: "\uD2F0\uD0C0\uB284 \uAD11\uC11D"
   value: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f4c3a7cb25102e04896f1f8c5fa1794b, type: 3}

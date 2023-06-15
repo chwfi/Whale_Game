@@ -13,15 +13,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _keyInfo;
     [SerializeField] private TextMeshProUGUI _oxygenText;
     [SerializeField] private CanvasGroup _warnInfo;
-    [SerializeField] private CanvasGroup _inventory;
-    [SerializeField] private TextMeshProUGUI[] _countText;
-    [SerializeField] private TextMeshProUGUI[] _nameText;
-    [SerializeField] private Image[] _lockImage;
-    public Slider FuelSlider;
+    [SerializeField] private GameObject _inventoryPanel;
+    [SerializeField] private TextMeshPro[] _countText;
+    [SerializeField] private TextMeshPro[] _nameText;
+    [SerializeField] private GameObject _arm;
+    [SerializeField] private TextMeshProUGUI _fuelPercent;
+    [SerializeField] private TextMeshProUGUI _durabilityPercent;
+    public Image FuelSlider;
+    public Image DurabilitySlider;
     public Slider SpeedSlider;
     public Image OxygenSlider;
     public Image HpSlider;
     public Image ManaSlider;
+
+    public bool isShowing = false;
 
     [Header("Value")]
     [SerializeField] private float _fadeSpeed = 0.8f;
@@ -44,7 +49,23 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        FuelSlider.value = FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel;
+        FuelSlider.fillAmount = FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel;
+        _fuelPercent.text = (FuelSystem.Instance.Gauge / FuelSystem.Instance.MaxFuel).ToString("P0");
+
+        DurabilitySlider.fillAmount = DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability;
+        _durabilityPercent.text = (DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability).ToString("P0");
+
+        if (Input.GetKeyDown(KeyCode.Tab) && _controller.CanRotateCam)
+        {
+            if (isShowing)
+            {
+                DisableInventoryUI();
+            }
+            else
+            {
+                ShowInventoryUI();
+            }
+        }
     }
 
     public void SetStatUI(float hp, float mana, float ox)
@@ -66,25 +87,26 @@ public class UIManager : MonoBehaviour
 
     public void SetInventoryUI(int count, string name, int num)
     {
-        _lockImage[num].gameObject.SetActive(false);
         _countText[num].text = count.ToString();
         _nameText[num].text = name;
     }
 
-    public void LockUnlockInventoryUI(string name, int num)
+    public void ShowInventoryUI()
     {
-        _nameText[num].text = name;
+        _arm.SetActive(false);
+        _controller.CanMove = false;
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-10, 180, 0)), 0.75f).OnComplete(() =>
+        {
+            isShowing = true;
+        });
     }
 
-    public void ShowInventoryUI(int value)
+    public void DisableInventoryUI()
     {
-        if (_inventory.alpha <= 0) value = 1;
-        else value = 0;
-
-        if (value == 1) _controller.CanRotateCam = false;
-        else _controller.CanRotateCam = true;
-
-        _inventory.DOFade(value, 0.25f);
+        _arm.SetActive(true);
+        _controller.CanMove = true;
+        isShowing = false;
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.75f);
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

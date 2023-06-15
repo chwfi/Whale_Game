@@ -285,14 +285,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: c05e63dc7a1891a4e8b862b4144b8722, type: 2}
-  _collectCooltime: 1.85
-  _maxDis: 2
+  _collectCooltime: 0.5
+  _textMaxdis: 15
+  _mineMaxdis: 3
   _text: {fileID: 7736828382715841258}
   _name: {fileID: 2424367003921093781}
   CanMining: 0
   _maxTimer: 5
   _miningSpeed: 2
-  isBig: 0
+  _rigid: []
 --- !u!1 &7736828382715841256
 GameObject:
   m_ObjectHideFlags: 0

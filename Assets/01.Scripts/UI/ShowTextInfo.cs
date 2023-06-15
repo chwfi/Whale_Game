@@ -18,6 +18,11 @@ public class ShowTextInfo : MonoBehaviour
 
     [SerializeField] private CanvasGroup _panel;
 
+    [SerializeField] private GameObject _inventoryPanel;
+    [SerializeField] private TextMeshPro _shownText;
+
+    public bool isShowing = false;
+
     private void Awake()
     {
         _playerPos = GameObject.Find("Player").GetComponent<Transform>();
@@ -34,17 +39,22 @@ public class ShowTextInfo : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (_panel.alpha >= 0.5f)
+                if (isShowing)
                 {
+                    UIManager.Instance.OffInfo(_text, _name);
                     Init();
-                }       
+                }
                 else
                 {
-                    _panel.DOFade(1, 0.5f);
-                    _controller.CanRotateCam = false;
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Cursor.visible = true;
-                }    
+                    _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
+                    {
+                        isShowing = true;
+                        _panel.gameObject.SetActive(true);
+                        _controller.CanRotateCam = false;
+                        Cursor.lockState = CursorLockMode.Confined;
+                        Cursor.visible = true;
+                    });
+                }  
             }
         }
         else
@@ -56,9 +66,11 @@ public class ShowTextInfo : MonoBehaviour
 
     private void Init()
     {
-        _panel.DOFade(0, 0.5f);
         _controller.CanRotateCam = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
+        isShowing = false;
+        _panel.gameObject.SetActive(false);
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.25f);
     }
 }

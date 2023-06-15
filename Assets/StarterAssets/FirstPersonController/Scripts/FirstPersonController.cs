@@ -148,6 +148,7 @@ namespace StarterAssets
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDPickup = Animator.StringToHash("Pickup");
 			_animIDHold = Animator.StringToHash("Hold");
+			_animIDSwing = Animator.StringToHash("Hammer");
 		}
 
 		private void Update()
@@ -160,6 +161,11 @@ namespace StarterAssets
 			SetParent();
 			ReturnToHome();
 			//PickupAnimation();
+
+			//if (Input.GetKeyDown(KeyCode.F))
+   //         {
+			//	_animator.SetTrigger(_animIDPickup);
+   //         }
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -284,7 +290,7 @@ namespace StarterAssets
 
 			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
 			{
-				transform.DOMove(_homePos.position, dis / 25f);
+				transform.DOMove(_homePos.position, dis / 20);
 			}
 		}
 
