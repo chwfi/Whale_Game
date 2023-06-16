@@ -53,7 +53,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.SolutionCount >= 2 && InventoryManager.Instance.PlasticBottleCount >= 1)
             {
-                InventoryManager.Instance.SolutionCount -= 3;
+                InventoryManager.Instance.SolutionCount -= 2;
                 InventoryManager.Instance.PlasticBottleCount -= 1;
                 InventoryManager.Instance.FuelCount += 1;
             }

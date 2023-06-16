@@ -74,6 +74,11 @@ public class InventoryManager : MonoBehaviour
                 //UIManager.Instance.SetInventoryUI(item.itemName, 2);
             }
         }
+        else if (item.id == 6)
+        {
+            CooperCount += item.value;
+            TitanumCount += item.value;
+        }
     }
 
     private void Update()

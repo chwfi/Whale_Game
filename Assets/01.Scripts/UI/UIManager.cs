@@ -14,11 +14,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _oxygenText;
     [SerializeField] private CanvasGroup _warnInfo;
     [SerializeField] private GameObject _inventoryPanel;
-    [SerializeField] private TextMeshPro[] _countText;
-    [SerializeField] private TextMeshPro[] _nameText;
+    [SerializeField] private TextMeshProUGUI[] _inventoryCountText;
+    [SerializeField] private TextMeshProUGUI[] _inventoryNameText;
     [SerializeField] private GameObject _arm;
     [SerializeField] private TextMeshProUGUI _fuelPercent;
     [SerializeField] private TextMeshProUGUI _durabilityPercent;
+    [SerializeField] private GameObject _panel;
     public Image FuelSlider;
     public Image DurabilitySlider;
     public Slider SpeedSlider;
@@ -66,18 +67,30 @@ public class UIManager : MonoBehaviour
         {
             if (isShowing)
             {
-                DisableInventoryUI();
+                //OffInfo(_text, _name);
+                Init();
             }
             else
             {
-                ShowInventoryUI();
+                _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
+                {
+                    isShowing = true;
+                    _panel.gameObject.SetActive(true);
+                });
             }
         }
 
-        _countText[0].text = InventoryManager.Instance.CooperCount.ToString();
-        _countText[1].text = InventoryManager.Instance.TitanumCount.ToString();
+        _inventoryCountText[0].text = InventoryManager.Instance.CooperCount.ToString();
+        _inventoryCountText[1].text = InventoryManager.Instance.TitanumCount.ToString();
 
         SetProductCountUI();
+    }
+
+    private void Init()
+    {
+        isShowing = false;
+        _panel.gameObject.SetActive(false);
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.25f);
     }
 
     public void SetStatUI(float hp, float mana, float ox)
@@ -99,14 +112,14 @@ public class UIManager : MonoBehaviour
 
     public void SetInventoryUI(string name, int num)
     {
-        _nameText[num].text = name;
+        _inventoryNameText[num].text = name;
     }
 
     public void ShowInventoryUI()
     {
         _arm.SetActive(false);
         _controller.CanMove = false;
-        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-10, 180, 0)), 0.75f).OnComplete(() =>
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-10, 180, 0)), 0.45f).OnComplete(() =>
         {
             isShowing = true;
         });
@@ -117,7 +130,7 @@ public class UIManager : MonoBehaviour
         _arm.SetActive(true);
         _controller.CanMove = true;
         isShowing = false;
-        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.75f);
+        _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.45f);
     }
 
     public void SetProductCountUI()

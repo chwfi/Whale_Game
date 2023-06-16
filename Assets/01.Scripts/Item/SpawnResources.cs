@@ -23,6 +23,11 @@ public class SpawnResources : MonoBehaviour
             Instantiate(Resources[2]);
         }
 
+        for (int j = 0; j < 20; j++)
+        {
+            Instantiate(Resources[3]);
+        }
+
         //for (int i = 0; i < 10; i++)
         //{
         //    Instantiate(Resources[2]);
