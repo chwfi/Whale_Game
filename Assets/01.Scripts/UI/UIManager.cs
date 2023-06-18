@@ -92,6 +92,9 @@ public class UIManager : MonoBehaviour
         _inventoryCountText[5].text = InventoryManager.Instance.PlasticBottleCount.ToString();
         _inventoryCountText[6].text = InventoryManager.Instance.FuelCount.ToString();
         _inventoryCountText[7].text = InventoryManager.Instance.FishCount.ToString();
+        _inventoryCountText[8].text = InventoryManager.Instance.BatteryCount.ToString();
+        _inventoryCountText[9].text = InventoryManager.Instance.IceCount.ToString();
+        _inventoryCountText[10].text = InventoryManager.Instance.WaterCount.ToString();
 
         SetProductCountUI();
     }
@@ -167,6 +170,18 @@ public class UIManager : MonoBehaviour
         _countTexts[3].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/1";
         _countTexts[4].text = InventoryManager.Instance.SolutionCount.ToString() + "/2";
         _countTexts[5].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";
+
+        _countTexts[6].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/9";
+        _countTexts[7].text = InventoryManager.Instance.BatteryCount.ToString() + "/1";
+        _countTexts[8].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/24";
+        _countTexts[9].text = InventoryManager.Instance.BatteryCount.ToString() + "/2";
+        _countTexts[10].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/12";
+        _countTexts[11].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/9";
+        _countTexts[12].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/30";
+        _countTexts[13].text = InventoryManager.Instance.BatteryCount.ToString() + "/3";
+
+        _countTexts[14].text = InventoryManager.Instance.IceCount.ToString() + "/1";
+        _countTexts[15].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";
     }
 
     public void ShowProductWarnText(bool value)

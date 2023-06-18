@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ProductManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _button01;
+    [SerializeField] private GameObject _button02;
+    [SerializeField] private GameObject _button03;
+    [SerializeField] private GameObject _button04;
+
     public void Product(int productNum)
     {
         if (productNum == 1)
@@ -56,6 +61,85 @@ public class ProductManager : MonoBehaviour
                 InventoryManager.Instance.SolutionCount -= 2 ;
                 InventoryManager.Instance.PlasticBottleCount -= 1;
                 InventoryManager.Instance.FuelCount += 1;
+            }
+            else
+            {
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 5)
+        {
+            if (InventoryManager.Instance.TitanumIngotCount >= 9 && InventoryManager.Instance.BatteryCount >= 1)
+            {
+                InventoryManager.Instance.TitanumIngotCount -= 9;
+                InventoryManager.Instance.BatteryCount -= 1;
+                InventoryManager.Instance.LowTankCount += 1;
+                _button01.SetActive(false);
+            }
+            else
+            {
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 6)
+        {
+            if (InventoryManager.Instance.TitanumIngotCount >= 24 && InventoryManager.Instance.BatteryCount >= 2)
+            {
+                InventoryManager.Instance.TitanumIngotCount -= 24;
+                InventoryManager.Instance.BatteryCount -= 2;
+                InventoryManager.Instance.HighTankCount += 1;
+                _button02.SetActive(false);
+            }
+            else
+            {
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 7)
+        {
+            if (InventoryManager.Instance.CooperIngotCount >= 12 && InventoryManager.Instance.TitanumIngotCount >= 9)
+            {
+                InventoryManager.Instance.CooperIngotCount -= 12;
+                InventoryManager.Instance.TitanumIngotCount -= 9;
+                InventoryManager.Instance.FlipperCount += 1;
+                _button03.SetActive(false);
+            }
+            else
+            {
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 8)
+        {
+            if (InventoryManager.Instance.TitanumIngotCount >= 30 && InventoryManager.Instance.BatteryCount >= 3)
+            {
+                InventoryManager.Instance.TitanumIngotCount -= 30;
+                InventoryManager.Instance.BatteryCount -= 3;
+                InventoryManager.Instance.GliderCount += 1;
+                _button04.SetActive(false);
+            }
+            else
+            {
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 9)
+        {
+            if (InventoryManager.Instance.IceCount >= 1 && InventoryManager.Instance.PlasticBottleCount >= 1)
+            {
+                InventoryManager.Instance.IceCount -= 1;
+                InventoryManager.Instance.PlasticBottleCount -= 1;
+                InventoryManager.Instance.WaterCount += 1;
             }
             else
             {

@@ -7,5 +7,6 @@ public class PlayerSO : ScriptableObject
 {
     public float MaxHp;
     public float MaxMana;
+    public float MaxHunger;
     public float MaxOxygen;
 }

@@ -11,26 +11,29 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private float _currentHp;
     private float _currentMana;
     private float _currentOxygen;
+    [SerializeField] private float _currentHunger;
 
     public bool grounded = true;
 
     [SerializeField] private float _oxDecreaseSpeed = 2f;
     [SerializeField] private float _hpDecreaseSpeed = 4f;
     [SerializeField] private float _manaDecreaseSpeed = 3f;
+    [SerializeField] private float _hungerDecreaseSpeed = 3f;
     [SerializeField] private float _increaseSpeed = 10f;
  
     public UnityEvent OnDeadTrigger = null;
 
     private void Start()
     {
-        SetStats(_playerStats.MaxHp, _playerStats.MaxMana, _playerStats.MaxOxygen);
+        SetStats(_playerStats.MaxHp, _playerStats.MaxMana, _playerStats.MaxOxygen, _playerStats.MaxHunger);
     }
 
-    public void SetStats(float hp, float mana, float ox)
+    public void SetStats(float hp, float mana, float ox, float hunger)
     {
         _currentHp = hp;
         _currentMana = mana;
         _currentOxygen = ox;
+        _currentHunger = hunger;
     }
 
     private void Update()
@@ -41,6 +44,8 @@ public class PlayerStatManager : MonoBehaviour
         if (_currentHp >= _playerStats.MaxHp) _currentHp = _playerStats.MaxHp;
 
         DecreaseHp();
+        DecreaseHunger();
+        DecreaseMana();
         DecreaseOxygen();
         IncreaseStats();
 
@@ -74,8 +79,23 @@ public class PlayerStatManager : MonoBehaviour
         if (_currentOxygen <= 0)
             _currentHp -= Time.unscaledDeltaTime * _hpDecreaseSpeed;
 
+        if (_currentHunger <= 0 || _currentMana <= 0)
+            _currentHp -= Time.unscaledDeltaTime * _hpDecreaseSpeed;
+
         if (_currentHp <= 0)
             OnDead();
+    }
+
+    private void DecreaseHunger()
+    {
+        if (_currentHunger >= 0)
+            _currentHunger -= Time.unscaledDeltaTime * _hungerDecreaseSpeed;
+    }
+
+    private void DecreaseMana()
+    {
+        if (_currentMana >= 0)
+            _currentMana -= Time.unscaledDeltaTime * _manaDecreaseSpeed;
     }
 
     private void SetUI()

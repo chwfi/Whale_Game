@@ -17,8 +17,18 @@ public class InventoryManager : MonoBehaviour
     public int SolutionCount;
     public int FuelCount;
     public int PlasticBottleCount;
+    public int IceCount;
 
     public int FishCount;
+
+    public int BatteryCount;
+
+    public int LowTankCount;
+    public int HighTankCount;
+    public int FlipperCount;
+    public int GliderCount;
+
+    public int WaterCount;
 
     private void Awake()
     {
@@ -86,6 +96,14 @@ public class InventoryManager : MonoBehaviour
         {
             CooperCount += item.Value;
             TitanumCount += item.Value;
+        }
+        else if (item.Id == 8)
+        {
+            BatteryCount += item.Value;
+        }
+        else if (item.Id == 9)
+        {
+            IceCount += item.Value;
         }
     }
 
