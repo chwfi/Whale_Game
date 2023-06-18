@@ -36,9 +36,9 @@ public class ProductManager : MonoBehaviour
 
         if (productNum == 3)
         {
-            if (InventoryManager.Instance.CooperIngotCount >= 3 && InventoryManager.Instance.TitanumIngotCount >= 1)
+            if (InventoryManager.Instance.CooperIngotCount >= 2 && InventoryManager.Instance.TitanumIngotCount >= 1)
             {
-                InventoryManager.Instance.CooperIngotCount -= 3;
+                InventoryManager.Instance.CooperIngotCount -= 2;
                 InventoryManager.Instance.TitanumIngotCount -= 1;
                 InventoryManager.Instance.SolutionCount += 1;
             }
@@ -53,7 +53,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.SolutionCount >= 2 && InventoryManager.Instance.PlasticBottleCount >= 1)
             {
-                InventoryManager.Instance.SolutionCount -= 2;
+                InventoryManager.Instance.SolutionCount -= 2 ;
                 InventoryManager.Instance.PlasticBottleCount -= 1;
                 InventoryManager.Instance.FuelCount += 1;
             }

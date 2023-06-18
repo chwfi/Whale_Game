@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/ObstacleData")]
 public class ObstacleSO : ScriptableObject
 {
-    public int data;
-    public float damage;
+    public int Data;
+    public float Damage;
 }

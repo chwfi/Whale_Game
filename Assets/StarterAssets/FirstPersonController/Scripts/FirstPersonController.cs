@@ -127,7 +127,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			_animator = GameObject.Find("Visual").GetComponent<Animator>();
+			_animator = GetComponentInChildren<Animator>();
 			_playerManager = GetComponent<PlayerStatManager>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();

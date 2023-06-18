@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39979b9ffffafe4399339194ff0ebc3, type: 3}
   m_Name: TitaniumRock
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: "\uD2F0\uD0C0\uB284 \uAD11\uC11D"
-  value: 3
-  icon: {fileID: 21300000, guid: f4c3a7cb25102e04896f1f8c5fa1794b, type: 3}
+  Id: 2
+  ItemName: "\uD2F0\uD0C0\uB284 \uAD11\uC11D"
+  Value: 3
+  Icon: {fileID: 0}

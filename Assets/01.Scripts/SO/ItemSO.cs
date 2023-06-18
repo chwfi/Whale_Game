@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/ItemData")]
 public class ItemSO : ScriptableObject
 {
-    public int id;
-    public string itemName;
-    public int value;
-    public Sprite icon;
+    public int Id;
+    public string ItemName;
+    public int Value;
+    public Sprite Icon;
 }

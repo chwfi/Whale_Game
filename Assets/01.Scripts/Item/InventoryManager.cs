@@ -18,6 +18,8 @@ public class InventoryManager : MonoBehaviour
     public int FuelCount;
     public int PlasticBottleCount;
 
+    public int FishCount;
+
     private void Awake()
     {
         Instance = this;
@@ -28,56 +30,62 @@ public class InventoryManager : MonoBehaviour
         Manage(item);
     }
 
+    public void AddCreature(FishSO fish)
+    {
+        ManageCreature(fish);
+    }
+
     public void Remove(ItemSO item)
     {
         Items.Remove(item);
     }
 
+    public void ManageCreature(FishSO item)
+    {
+        FishCount += item.Value;   
+    }
+
     public void Manage(ItemSO item)
     {
-        if (item.id == 1)
+        if (item.Id == 1)
         {
             if (CooperCount <= 0)
             {
-                CooperCount += item.value;
-                UIManager.Instance.SetInventoryUI(item.itemName, 0);
+                CooperCount += item.Value;
             }
             else
             {
-                CooperCount += item.value;
-                UIManager.Instance.SetInventoryUI(item.itemName, 0);
+                CooperCount += item.Value;
             }
         }
-        else if (item.id == 2)
+        else if (item.Id == 2)
         {
             if (TitanumCount <= 0)
             {
-                TitanumCount += item.value;
-                UIManager.Instance.SetInventoryUI(item.itemName, 1);
+                TitanumCount += item.Value;
             }
             else
             {
-                TitanumCount += item.value;
-                UIManager.Instance.SetInventoryUI(item.itemName, 1);
+                TitanumCount += item.Value;
             }
         }
-        else if (item.id == 5)
+        else if (item.Id == 5)
         {
             if (PlasticBottleCount <= 0)
             {
-                PlasticBottleCount += item.value;
+                PlasticBottleCount += item.Value;
                 //UIManager.Instance.SetInventoryUI(item.itemName, 2);
             }
             else
             {
-                PlasticBottleCount += item.value;
+                PlasticBottleCount += item.Value;
                 //UIManager.Instance.SetInventoryUI(item.itemName, 2);
             }
         }
-        else if (item.id == 6)
+        else if (item.Id == 6)
         {
-            CooperCount += item.value;
-            TitanumCount += item.value;
+            CooperCount += item.Value;
+            TitanumCount += item.Value;
         }
     }
 

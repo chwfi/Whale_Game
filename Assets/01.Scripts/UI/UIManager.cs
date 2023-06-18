@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup _warnInfo;
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private TextMeshProUGUI[] _inventoryCountText;
-    [SerializeField] private TextMeshProUGUI[] _inventoryNameText;
     [SerializeField] private GameObject _arm;
     [SerializeField] private TextMeshProUGUI _fuelPercent;
     [SerializeField] private TextMeshProUGUI _durabilityPercent;
@@ -30,6 +29,9 @@ public class UIManager : MonoBehaviour
     [Header("ProductUI")]
     [SerializeField] private TextMeshProUGUI[] _countTexts;
     [SerializeField] private TextMeshProUGUI _resourceWarnText;
+    [SerializeField] private Image _productPanel01;
+    [SerializeField] private Image _productPanel02;
+    [SerializeField] private Image _productPanel03;
 
     [Header("FuelUI")]
     [SerializeField] private TextMeshProUGUI _fuelCountText;
@@ -63,15 +65,17 @@ public class UIManager : MonoBehaviour
         DurabilitySlider.fillAmount = DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability;
         _durabilityPercent.text = (DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability).ToString("P0");
 
-        if (Input.GetKeyDown(KeyCode.Tab) && _controller.CanRotateCam)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (isShowing)
             {
                 //OffInfo(_text, _name);
+                _arm.SetActive(true);
                 Init();
             }
             else
             {
+                _arm.SetActive(false);
                 _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
                 {
                     isShowing = true;
@@ -82,8 +86,35 @@ public class UIManager : MonoBehaviour
 
         _inventoryCountText[0].text = InventoryManager.Instance.CooperCount.ToString();
         _inventoryCountText[1].text = InventoryManager.Instance.TitanumCount.ToString();
+        _inventoryCountText[2].text = InventoryManager.Instance.CooperIngotCount.ToString();
+        _inventoryCountText[3].text = InventoryManager.Instance.TitanumIngotCount.ToString();
+        _inventoryCountText[4].text = InventoryManager.Instance.SolutionCount.ToString();
+        _inventoryCountText[5].text = InventoryManager.Instance.PlasticBottleCount.ToString();
+        _inventoryCountText[6].text = InventoryManager.Instance.FuelCount.ToString();
+        _inventoryCountText[7].text = InventoryManager.Instance.FishCount.ToString();
 
         SetProductCountUI();
+    }
+
+    public void ShowProductPanel01()
+    {
+        _productPanel01.gameObject.SetActive(true);
+        _productPanel02.gameObject.SetActive(false);
+        _productPanel03.gameObject.SetActive(false);
+    }
+
+    public void ShowProductPanel02()
+    {
+        _productPanel01.gameObject.SetActive(false);
+        _productPanel02.gameObject.SetActive(true);
+        _productPanel03.gameObject.SetActive(false);
+    }
+
+    public void ShowProductPanel03()
+    {
+        _productPanel01.gameObject.SetActive(false);
+        _productPanel02.gameObject.SetActive(false);
+        _productPanel03.gameObject.SetActive(true);
     }
 
     private void Init()
@@ -110,11 +141,6 @@ public class UIManager : MonoBehaviour
         _warnInfo.DOFade(value, 1); 
     }
 
-    public void SetInventoryUI(string name, int num)
-    {
-        _inventoryNameText[num].text = name;
-    }
-
     public void ShowInventoryUI()
     {
         _arm.SetActive(false);
@@ -137,7 +163,7 @@ public class UIManager : MonoBehaviour
     {
         _countTexts[0].text = InventoryManager.Instance.CooperCount.ToString() + "/3";
         _countTexts[1].text = InventoryManager.Instance.TitanumCount.ToString() + "/3";
-        _countTexts[2].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/3";
+        _countTexts[2].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/2";
         _countTexts[3].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/1";
         _countTexts[4].text = InventoryManager.Instance.SolutionCount.ToString() + "/2";
         _countTexts[5].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39979b9ffffafe4399339194ff0ebc3, type: 3}
   m_Name: PlasticBottle
   m_EditorClassIdentifier: 
-  id: 5
-  itemName: PlasticBottle
-  value: 1
-  icon: {fileID: 21300000, guid: db7294bc91d724748a81b8c724127a88, type: 3}
+  Id: 5
+  ItemName: 
+  Value: 1
+  Icon: {fileID: 0}
