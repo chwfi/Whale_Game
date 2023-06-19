@@ -56,7 +56,12 @@ MonoBehaviour:
   _maxTimer: 5
   _miningSpeed: 2
   _zPosRandMinValue: 300
-  _zPosRandMaxValue: 2500
+  _zPosRandMaxValue: 1500
+  _xMinValue: -400
+  _xMaxValue: 400
+  _xLimit: 320
+  _yPosRandMinValue: 20
+  _yPosRandMaxValue: 80
 --- !u!1 &3497633167967240406
 GameObject:
   m_ObjectHideFlags: 0

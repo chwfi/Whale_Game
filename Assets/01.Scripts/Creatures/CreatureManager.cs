@@ -25,9 +25,9 @@ public class CreatureManager : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
 
-        float rotRand = Random.Range(-35, 35);
+        float rotRand = Random.Range(-30, 30);
         float posXRand = Random.Range(-30, 30);
-        float posYRand = Random.Range(20, 60);
+        float posYRand = Random.Range(30, 70);
         float posZRand = Random.Range(_zPosRandMinValue, _zPosRandMaxValue);
         this.transform.rotation = Quaternion.Euler(new Vector3(0, rotRand, 0));
         this.transform.position = new Vector3(posXRand, posYRand, posZRand);

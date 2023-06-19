@@ -249,8 +249,8 @@ MonoBehaviour:
   _mineMaxdis: 3
   _text: {fileID: 4078167096409455949}
   _name: {fileID: 4078167095503865405}
-  _zPosRandMinValue: 250
-  _zPosRandMaxValue: 2500
+  _zPosRandMinValue: 400
+  _zPosRandMaxValue: 2400
 --- !u!1 &4078167095503865403
 GameObject:
   m_ObjectHideFlags: 0

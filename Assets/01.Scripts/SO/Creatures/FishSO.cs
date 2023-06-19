@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/CreatureData")]
+[CreateAssetMenu(menuName = "SO/CreatureData/Fish")]
 public class FishSO : ScriptableObject
 {
     public int Id;

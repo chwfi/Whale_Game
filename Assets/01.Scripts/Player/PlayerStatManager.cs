@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerStatManager : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class PlayerStatManager : MonoBehaviour
 
     [SerializeField] private float _currentHp;
     private float _currentMana;
-    [SerializeField] private float _currentOxygen;
+    private float _currentOxygen;
     private float _currentHunger;
 
     public bool grounded = true;
@@ -22,6 +24,9 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private float _manaDecreaseSpeed = 3f;
     [SerializeField] private float _hungerDecreaseSpeed = 3f;
     [SerializeField] private float _increaseSpeed = 10f;
+
+    private DeathEffect _deathEffect;
+    [SerializeField] private Image _screenEffect;
  
     public UnityEvent OnDeadTrigger = null;
 
@@ -34,6 +39,8 @@ public class PlayerStatManager : MonoBehaviour
 
     private void Start()
     {
+        _deathEffect = GameObject.Find("Postprocessing").GetComponent<DeathEffect>();
+
         SetStats(_playerStats.MaxHp, _playerStats.MaxMana, _playerStats.MaxOxygen, _playerStats.MaxHunger);
     }
 
@@ -47,6 +54,12 @@ public class PlayerStatManager : MonoBehaviour
 
     private void Update()
     {
+        if (grounded && _currentHp > 0)
+            _deathEffect.canEffect = false;
+        if (_currentHp <= 0)
+            OnDead();
+        SetUI();
+
         if (_currentHp <= 0) return;
 
         if (_currentOxygen >= _playerStats.MaxOxygen) _currentOxygen = _playerStats.MaxOxygen;
@@ -57,8 +70,6 @@ public class PlayerStatManager : MonoBehaviour
         DecreaseMana();
         DecreaseOxygen();
         IncreaseStats();
-
-        SetUI();
     }
 
     private void IncreaseStats()
@@ -68,7 +79,7 @@ public class PlayerStatManager : MonoBehaviour
         if (_currentHunger <= 0 || _currentMana <= 0) return;
 
         if (grounded)
-        {
+        {       
             _currentOxygen += Time.unscaledDeltaTime * _increaseSpeed;
             if (_currentOxygen >= _playerStats.MaxOxygen) _currentHp += Time.deltaTime * _increaseSpeed;
         }
@@ -80,6 +91,11 @@ public class PlayerStatManager : MonoBehaviour
         if (grounded) return;
 
         _currentOxygen -= Time.unscaledDeltaTime * _oxDecreaseSpeed;
+
+        if (_currentOxygen <= 0)
+        {
+            _deathEffect.canEffect = true;
+        }
     }
 
     private void DecreaseHp()
@@ -91,10 +107,10 @@ public class PlayerStatManager : MonoBehaviour
         }       
 
         if (_currentHunger <= 0 || _currentMana <= 0)
+        {
+            _deathEffect.canEffect = true;
             _currentHp -= Time.unscaledDeltaTime * _hpDecreaseSpeed;
-
-        if (_currentHp <= 0)
-            OnDead();
+        }       
     }
 
     private void DecreaseHunger()
@@ -109,6 +125,15 @@ public class PlayerStatManager : MonoBehaviour
         if (_currentMana <= 0) return;
 
         _currentMana -= Time.unscaledDeltaTime * _manaDecreaseSpeed;
+    }
+
+    public void OnDamage()
+    {
+        _screenEffect.DOFade(0.25f, 0.25f).SetEase(Ease.OutQuint).OnComplete(() =>
+        {
+            _screenEffect.DOFade(0, 0.25f);
+        });
+        _currentHp -= 80f;
     }
 
     public void IncreaseHunger(float value)

@@ -32,6 +32,9 @@ public class InventoryManager : MonoBehaviour
 
     public int MaxFuelCount = 20;
 
+    public int MaxCooperCount = 50;
+    public int MaxTitanumCount = 50;
+
     private void Awake()
     {
         Instance = this;
@@ -54,7 +57,14 @@ public class InventoryManager : MonoBehaviour
 
     public void ManageCreature(FishSO item)
     {
-        FishCount += item.Value;   
+        if (item.Id == 20)
+        {
+            SolutionCount += 1;
+        }
+        else
+        {
+            FishCount += item.Value;
+        }
     }
 
     public void Manage(ItemSO item)
@@ -112,5 +122,6 @@ public class InventoryManager : MonoBehaviour
     private void Update()
     {
         UIManager.Instance.ShowFuelCountUI(FuelCount, MaxFuelCount);
+        UIManager.Instance.ShowDurCountUI(CooperIngotCount, MaxCooperCount, TitanumIngotCount, MaxTitanumCount);
     }
 }

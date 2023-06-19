@@ -26,27 +26,40 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField] private float _zPosRandMinValue = 100f;
     [SerializeField] private float _zPosRandMaxValue = 1200f;
-
-    MeshRenderer _rend;
+    [SerializeField] private float _xMinValue = -50;
+    [SerializeField] private float _xMaxValue = 50;
+    [SerializeField] private float _xLimit = 20;
+    [SerializeField] private float _yPosRandMinValue = 20f;
+    [SerializeField] private float _yPosRandMaxValue = 80f;
 
     private void Start()
     {
+        bool isVaild = false;
         _timer = _maxTimer;
         _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
-        _rend = GetComponent<MeshRenderer>();
 
         float rotRand = Random.Range(-90, 90);
-        float posXRand = Random.Range(-60, 60);
-        float posYRand = Random.Range(20, 80);
+
+        float posXRand = 0;
+
+        while (!isVaild)
+        {
+            float randomX = Random.Range(_xMinValue, _xMaxValue);
+
+            if (randomX < -_xLimit || randomX > _xLimit)
+            {
+                isVaild = true;
+                posXRand = randomX;
+            }
+            else
+            {
+                isVaild = false;
+            }
+        }
+        float posYRand = Random.Range(_yPosRandMinValue, _yPosRandMaxValue);
         float posZRand = Random.Range(_zPosRandMinValue, _zPosRandMaxValue);
         this.transform.rotation = Quaternion.Euler(new Vector3(rotRand, rotRand, rotRand));
         this.transform.position = new Vector3(posXRand, posYRand, posZRand);
-    }
-
-    void Pickup()
-    {
-        InventoryManager.Instance.Add(Item);
-        this._rend.enabled = false;
     }
 
     private void Update()

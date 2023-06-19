@@ -298,6 +298,8 @@ namespace StarterAssets
 				transform.DOMove(_homePos.position, dis / 20);
 				Gravity = -15;
 				_glider.Disable();
+
+				if (Grounded) _glider.Disable();
 			}
 		}
 

@@ -19,7 +19,7 @@ public class DurabilitySystem : MonoBehaviour
 
     private void Start()
     {
-        SetDurability(MaxDurability);
+        SetDurability(0);
     }
 
     public void SetDurability(float durab)
@@ -30,5 +30,22 @@ public class DurabilitySystem : MonoBehaviour
     public void Decrease(float durab)
     {
         CurrentDurability -= durab;
+    }
+
+    public void PlusDutability(float value)
+    {
+        if (InventoryManager.Instance.CooperIngotCount >= 1 && InventoryManager.Instance.TitanumIngotCount >= 1)
+        {
+            CurrentDurability += value;
+            InventoryManager.Instance.CooperIngotCount -= 1;
+            InventoryManager.Instance.TitanumIngotCount -= 1;
+            InventoryManager.Instance.MaxCooperCount -= 1;
+            InventoryManager.Instance.MaxTitanumCount -= 1;
+        }
+
+        if (CurrentDurability >= MaxDurability)
+        {
+            CurrentDurability = MaxDurability;
+        }
     }
 }

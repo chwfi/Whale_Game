@@ -17,7 +17,7 @@ public class FishAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (_fishController.MoveSpeed > 1.75f) _animator.SetBool(fastID, true);
+        if (_fishController.MoveSpeed > 1.25f) _animator.SetBool(fastID, true);
         else _animator.SetBool(fastID, false);
     }
 }

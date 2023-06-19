@@ -39,6 +39,10 @@ public class UIManager : MonoBehaviour
 
     [Header("FuelUI")]
     [SerializeField] private TextMeshProUGUI _fuelCountText;
+    [SerializeField] private TextMeshProUGUI _ignotCountText01;
+    [SerializeField] private TextMeshProUGUI _ignotCountText02;
+    [SerializeField] private GameObject _01;
+    [SerializeField] private GameObject _02;
 
     public bool isShowing = false;
 
@@ -101,6 +105,15 @@ public class UIManager : MonoBehaviour
         _inventoryCountText[10].text = InventoryManager.Instance.WaterCount.ToString();
 
         SetProductCountUI();
+
+        if (InventoryManager.Instance.MaxFuelCount <= 0)
+        {
+            _01.SetActive(false);
+        }
+        if (InventoryManager.Instance.MaxCooperCount <= 0 || InventoryManager.Instance.MaxTitanumCount <= 0)
+        {
+            _02.SetActive(false);
+        }
     }
 
     public void ShowProductPanel01()
@@ -197,6 +210,12 @@ public class UIManager : MonoBehaviour
     public void ShowFuelCountUI(int count, int max)
     {
         _fuelCountText.text = "연료 넣기 " + count.ToString() + "/" + max.ToString();
+    }
+
+    public void ShowDurCountUI(int count, int max, int value, int maxvalue)
+    {
+        _ignotCountText01.text = count.ToString() + "/" + max.ToString();
+        _ignotCountText02.text = value.ToString() + "/" + maxvalue.ToString();
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)
