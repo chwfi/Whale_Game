@@ -246,7 +246,7 @@ MonoBehaviour:
   Fish: {fileID: 11400000, guid: b0b00664a82875f42bd0e994e5616302, type: 2}
   _collectCooltime: 0.5
   _textMaxdis: 20
-  _mineMaxdis: 4
+  _mineMaxdis: 3
   _text: {fileID: 4078167096409455949}
   _name: {fileID: 4078167095503865405}
   _zPosRandMinValue: 250

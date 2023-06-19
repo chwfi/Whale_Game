@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   MaxHp: 100
-  MaxMana: 50
-  MaxHunger: 50
-  MaxOxygen: 100
+  MaxMana: 400
+  MaxHunger: 450
+  MaxOxygen: 75

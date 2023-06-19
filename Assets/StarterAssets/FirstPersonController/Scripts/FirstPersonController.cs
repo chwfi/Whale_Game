@@ -100,6 +100,9 @@ namespace StarterAssets
 		private float _animationBlend;
 		private Animator _animator;
 		private PlayerStatManager _playerManager;
+		private Glider _glider;
+
+		public GameObject Arm;
 
 
 		public bool CanMove = true;
@@ -133,6 +136,7 @@ namespace StarterAssets
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
+			_glider = GetComponentInChildren<Glider>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -290,12 +294,16 @@ namespace StarterAssets
 
 			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
 			{
+				enableGlider = false;
 				transform.DOMove(_homePos.position, dis / 20);
+				Gravity = -15;
+				_glider.Disable();
 			}
 		}
 
 		public float timer;
 		public bool isZeroGravity = false;
+		bool enableGlider = false;
 
 		[SerializeField] private float zeroGravity = -0.01f;
 		[SerializeField] private float maxTime = 3f;
@@ -305,6 +313,8 @@ namespace StarterAssets
 			if (Grounded)
 			{
 				UIManager.Instance.OffSpaceInfo();
+				Arm.SetActive(true);
+				enableGlider = true;
 				_playerManager.grounded = true;
 				Gravity = -12f;
 				timer = 0f;
@@ -314,7 +324,13 @@ namespace StarterAssets
 			{
 				UIManager.Instance.InSpaceInfo();
 				_playerManager.grounded = false;
-				Gravity = zeroGravity;
+				if (enableGlider)
+					Gravity = zeroGravity;
+				if (InventoryManager.Instance.GliderCount >= 1 && enableGlider)
+                {
+					_glider.Enable();
+					Arm.SetActive(false);
+                }
 			}
 
 			if (!Grounded)

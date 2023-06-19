@@ -21,6 +21,8 @@ public class ShowTextInfo : MonoBehaviour
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private GameObject _table;
 
+    [SerializeField] private GameObject[] _check;
+
     public bool isShowing = false;
 
     private void Awake()
@@ -37,7 +39,7 @@ public class ShowTextInfo : MonoBehaviour
         {
             UIManager.Instance.ShowInfo(_text, _name);
             
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !_check[0].activeInHierarchy && !_check[1].activeInHierarchy)
             {
                 if (isShowing)
                 {

@@ -25,6 +25,10 @@ public class UIManager : MonoBehaviour
     public Image OxygenSlider;
     public Image HpSlider;
     public Image ManaSlider;
+    public Image HungerSlider;
+    [SerializeField] private GameObject PanelCheck01;
+    [SerializeField] private GameObject PanelCheck02;
+    [SerializeField] private GameObject PanelCheck03;
 
     [Header("ProductUI")]
     [SerializeField] private TextMeshProUGUI[] _countTexts;
@@ -65,7 +69,7 @@ public class UIManager : MonoBehaviour
         DurabilitySlider.fillAmount = DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability;
         _durabilityPercent.text = (DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability).ToString("P0");
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !PanelCheck01.activeInHierarchy && !PanelCheck02.activeInHierarchy)
         {
             if (isShowing)
             {
@@ -127,11 +131,12 @@ public class UIManager : MonoBehaviour
         _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-115, 180, 0)), 0.25f);
     }
 
-    public void SetStatUI(float hp, float mana, float ox)
+    public void SetStatUI(float hp, float mana, float ox, float hunger)
     {
         HpSlider.fillAmount = hp / 100;
-        ManaSlider.fillAmount = mana / 50;
-        OxygenSlider.fillAmount = ox / 100;
+        ManaSlider.fillAmount = mana / 400;
+        OxygenSlider.fillAmount = ox / PlayerStatManager.Instance.PlayerStats.MaxOxygen;
+        HungerSlider.fillAmount = hunger / 450;
     }
 
     public void SetOxygenText(float value)
@@ -171,12 +176,12 @@ public class UIManager : MonoBehaviour
         _countTexts[4].text = InventoryManager.Instance.SolutionCount.ToString() + "/2";
         _countTexts[5].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";
 
-        _countTexts[6].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/9";
+        _countTexts[6].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/6";
         _countTexts[7].text = InventoryManager.Instance.BatteryCount.ToString() + "/1";
         _countTexts[8].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/24";
         _countTexts[9].text = InventoryManager.Instance.BatteryCount.ToString() + "/2";
-        _countTexts[10].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/12";
-        _countTexts[11].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/9";
+        _countTexts[10].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/9";
+        _countTexts[11].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/6";
         _countTexts[12].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/30";
         _countTexts[13].text = InventoryManager.Instance.BatteryCount.ToString() + "/3";
 
@@ -189,9 +194,9 @@ public class UIManager : MonoBehaviour
         _resourceWarnText.gameObject.SetActive(value);
     }
 
-    public void ShowFuelCountUI(int count)
+    public void ShowFuelCountUI(int count, int max)
     {
-        _fuelCountText.text = "연료 넣기 " + count.ToString() + "/1";
+        _fuelCountText.text = "연료 넣기 " + count.ToString() + "/" + max.ToString();
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

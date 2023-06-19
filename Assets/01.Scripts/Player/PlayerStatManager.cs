@@ -5,13 +5,15 @@ using UnityEngine.Events;
 
 public class PlayerStatManager : MonoBehaviour
 {
+    public static PlayerStatManager Instance;
+
     [SerializeField] private PlayerSO _playerStats;
     public PlayerSO PlayerStats => _playerStats;
 
     [SerializeField] private float _currentHp;
     private float _currentMana;
-    private float _currentOxygen;
-    [SerializeField] private float _currentHunger;
+    [SerializeField] private float _currentOxygen;
+    private float _currentHunger;
 
     public bool grounded = true;
 
@@ -22,6 +24,13 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private float _increaseSpeed = 10f;
  
     public UnityEvent OnDeadTrigger = null;
+
+    private void Awake()
+    {
+        Instance = this;
+
+        _playerStats.MaxOxygen = 75;
+    }
 
     private void Start()
     {
@@ -56,6 +65,7 @@ public class PlayerStatManager : MonoBehaviour
     {
         if (_currentOxygen > _playerStats.MaxOxygen) return;
         if (_currentHp > _playerStats.MaxHp) return;
+        if (_currentHunger <= 0 || _currentMana <= 0) return;
 
         if (grounded)
         {
@@ -74,10 +84,11 @@ public class PlayerStatManager : MonoBehaviour
 
     private void DecreaseHp()
     {
-        if (grounded) return;
-
         if (_currentOxygen <= 0)
+        {
+            if (grounded) return;
             _currentHp -= Time.unscaledDeltaTime * _hpDecreaseSpeed;
+        }       
 
         if (_currentHunger <= 0 || _currentMana <= 0)
             _currentHp -= Time.unscaledDeltaTime * _hpDecreaseSpeed;
@@ -88,19 +99,38 @@ public class PlayerStatManager : MonoBehaviour
 
     private void DecreaseHunger()
     {
-        if (_currentHunger >= 0)
-            _currentHunger -= Time.unscaledDeltaTime * _hungerDecreaseSpeed;
+        if (_currentHunger <= 0) return;
+
+        _currentHunger -= Time.unscaledDeltaTime * _hungerDecreaseSpeed;
     }
 
     private void DecreaseMana()
     {
-        if (_currentMana >= 0)
-            _currentMana -= Time.unscaledDeltaTime * _manaDecreaseSpeed;
+        if (_currentMana <= 0) return;
+
+        _currentMana -= Time.unscaledDeltaTime * _manaDecreaseSpeed;
+    }
+
+    public void IncreaseHunger(float value)
+    {
+        if (InventoryManager.Instance.FishCount <= 0) return;
+
+        _currentHunger += value;
+        _currentMana += value / 2;
+        InventoryManager.Instance.FishCount -= 1;
+    }
+
+    public void IncreaseMana(float value)
+    {
+        if (InventoryManager.Instance.WaterCount <= 0) return;
+
+        _currentMana += value;
+        InventoryManager.Instance.WaterCount -= 1;
     }
 
     private void SetUI()
     {
-        UIManager.Instance.SetStatUI(_currentHp, _currentMana, _currentOxygen);
+        UIManager.Instance.SetStatUI(_currentHp, _currentMana, _currentOxygen, _currentHunger);
         UIManager.Instance.SetOxygenText(_currentOxygen);
 
         if (_currentOxygen <= 25)

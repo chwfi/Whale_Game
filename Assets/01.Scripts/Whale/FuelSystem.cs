@@ -19,7 +19,7 @@ public class FuelSystem : MonoBehaviour
 
     private void Start()
     {
-        SetGauge(MaxFuel);
+        SetGauge(0);
     }
 
     public void SetGauge(float gauge)
@@ -33,6 +33,7 @@ public class FuelSystem : MonoBehaviour
         {
             Gauge += gauge;
             InventoryManager.Instance.FuelCount -= 1;
+            InventoryManager.Instance.MaxFuelCount -= 1;
         }
 
         if (Gauge >= MaxFuel)

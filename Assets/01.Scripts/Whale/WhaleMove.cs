@@ -13,12 +13,13 @@ public class WhaleMove : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-        whaleMoveSpeed = speed * 10;
+        whaleMoveSpeed = speed;
     }
 
     private void Start()
     {
-        whaleMoveSpeed = 2;
+        SetSpeed(minSpeed);
+        //whaleMoveSpeed = 2;
     }
 
     private void Update()
@@ -26,22 +27,22 @@ public class WhaleMove : MonoBehaviour
         transform.Translate(Vector3.forward * whaleMoveSpeed * Time.deltaTime);
         _kmhText.text = (whaleMoveSpeed * 10).ToString("F0") + "Km/h";
 
-        FuelSystem.Instance.Gauge -= Time.unscaledDeltaTime * 0.75f * whaleMoveSpeed;
+        //FuelSystem.Instance.Gauge -= Time.unscaledDeltaTime * 0.75f * whaleMoveSpeed;
 
-        if (FuelSystem.Instance.Gauge <= 0)
-        {
-            //whaleMoveSpeed = Mathf.Lerp(whaleMoveSpeed, 0, 12);
-            FuelSystem.Instance.SetGauge(0);
-            SetSpeed(0);
-            UIManager.Instance.SpeedSlider.enabled = false;
-            UIManager.Instance.SpeedSlider.value = 0;
-        }
-        else
-            UIManager.Instance.SpeedSlider.enabled = true;
+        //if (FuelSystem.Instance.Gauge <= 0)
+        //{
+        //    //whaleMoveSpeed = Mathf.Lerp(whaleMoveSpeed, 0, 12);
+        //    FuelSystem.Instance.SetGauge(0);
+        //    SetSpeed(0);
+        //    UIManager.Instance.SpeedSlider.enabled = false;
+        //    UIManager.Instance.SpeedSlider.value = 0;
+        //}
+        //else
+        //    UIManager.Instance.SpeedSlider.enabled = true;
 
-        if (whaleMoveSpeed <= minSpeed)
-        {
-            whaleMoveSpeed = minSpeed;
-        }
+        //if (whaleMoveSpeed <= minSpeed)
+        //{
+        //    whaleMoveSpeed = minSpeed;
+        //}
     }
 }

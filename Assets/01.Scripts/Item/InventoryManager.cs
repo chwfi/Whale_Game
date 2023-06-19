@@ -30,6 +30,8 @@ public class InventoryManager : MonoBehaviour
 
     public int WaterCount;
 
+    public int MaxFuelCount = 20;
+
     private void Awake()
     {
         Instance = this;
@@ -109,6 +111,6 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        UIManager.Instance.ShowFuelCountUI(FuelCount);
+        UIManager.Instance.ShowFuelCountUI(FuelCount, MaxFuelCount);
     }
 }
