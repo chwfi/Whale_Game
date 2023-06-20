@@ -52,6 +52,14 @@ public class PlayerStatManager : MonoBehaviour
         _currentHunger = hunger;
     }
 
+    public void Init()
+    {
+        _currentHp = _playerStats.MaxHp;
+        _currentHunger = _playerStats.MaxHunger;
+        _currentMana = _playerStats.MaxMana;
+        _currentOxygen = _playerStats.MaxOxygen;
+    }
+
     private void Update()
     {
         if (grounded && _currentHp > 0)
@@ -129,20 +137,30 @@ public class PlayerStatManager : MonoBehaviour
 
     public void OnDamage()
     {
-        _screenEffect.DOFade(0.25f, 0.25f).SetEase(Ease.OutQuint).OnComplete(() =>
+        _screenEffect.DOFade(0.1f, 0.2f).SetEase(Ease.OutQuint).OnComplete(() =>
         {
-            _screenEffect.DOFade(0, 0.25f);
+            _screenEffect.DOFade(0, 0.2f);
         });
         _currentHp -= 80f;
     }
 
     public void IncreaseHunger(float value)
     {
-        if (InventoryManager.Instance.FishCount <= 0) return;
+        if (value == 75)
+        {
+            if (InventoryManager.Instance.FishCount <= 0) return;
+            _currentHunger += value;
+            _currentMana += value / 2;
+            InventoryManager.Instance.FishCount -= 1;
+        }
 
-        _currentHunger += value;
-        _currentMana += value / 2;
-        InventoryManager.Instance.FishCount -= 1;
+        else if (value == 90)
+        {
+            if (InventoryManager.Instance.WaterGunFishCount <= 0) return;
+            _currentHunger += value;
+            _currentMana += value / 2;
+            InventoryManager.Instance.WaterGunFishCount -= 1;
+        }
     }
 
     public void IncreaseMana(float value)

@@ -1858,7 +1858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.415, y: 0.044}
+  m_AnchoredPosition: {x: 0.402, y: 0.067}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &9122267564196857568
@@ -2030,7 +2030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.531, y: -0.014}
+  m_AnchoredPosition: {x: 50.33, y: -0.02}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &9122267564758535613
@@ -2095,7 +2095,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC00\uAE4C\uC774\uC11C F\uD0A4\uB97C \uB20C\uB7EC \uC218\uC9D1 "
+  m_text: "\uAC00\uAE4C\uC774\uC11C F\uD0A4\uB97C \uB20C\uB7EC \uC218\uC9D1 \n\uC5F0\uB8CC
+    \uC6A9\uC561 1\uAC1C \uD68D\uB4DD \uAC00\uB2A5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}
   m_sharedMaterial: {fileID: 3159059788667797647, guid: 79ec89fa0d8d3e646af1d23280b39353, type: 2}
@@ -2129,7 +2130,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2262,6 +2263,8 @@ MonoBehaviour:
   _name: {fileID: 9122267564196857569}
   _zPosRandMinValue: 400
   _zPosRandMaxValue: 2500
+  _xPosRandMinValue: -125
+  _xposRandMaxValue: 125
 --- !u!1 &9122267565347906377
 GameObject:
   m_ObjectHideFlags: 0

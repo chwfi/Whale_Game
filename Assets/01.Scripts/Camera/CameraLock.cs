@@ -16,7 +16,7 @@ public class CameraLock : MonoBehaviour
 
     void Update()
     {
-        if (_objs[0].activeInHierarchy || _objs[1].activeInHierarchy || _objs[2].activeInHierarchy)
+        if (_objs[0].activeInHierarchy || _objs[1].activeInHierarchy || _objs[2].activeInHierarchy || _objs[3].activeInHierarchy || _objs[4].activeInHierarchy)
         {
             _controller.CanRotateCam = false;
             Cursor.lockState = CursorLockMode.Confined;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class InventoryManager : MonoBehaviour
     public int IceCount;
 
     public int FishCount;
+    public int WaterGunFishCount;
 
     public int BatteryCount;
 
@@ -34,6 +36,7 @@ public class InventoryManager : MonoBehaviour
 
     public int MaxCooperCount = 50;
     public int MaxTitanumCount = 50;
+    public int MaxBatteryCount = 10;
 
     private void Awake()
     {
@@ -61,9 +64,13 @@ public class InventoryManager : MonoBehaviour
         {
             SolutionCount += 1;
         }
-        else
+        else if (item.Id == 10)
         {
             FishCount += item.Value;
+        }
+        else if (item.Id == 21)
+        {
+            WaterGunFishCount += item.Value;
         }
     }
 
@@ -119,9 +126,30 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void Init()
+    {
+        CooperCount = 0;
+        CooperIngotCount = 0;
+        TitanumCount = 0;
+        TitanumIngotCount = 0;
+        SolutionCount = 0;
+        FuelCount = 0;
+        PlasticBottleCount = 0;
+        IceCount = 0;
+        FishCount = 0;
+        WaterCount = 0;
+        WaterGunFishCount = 0;
+        BatteryCount = 0;
+    }
+
     private void Update()
     {
         UIManager.Instance.ShowFuelCountUI(FuelCount, MaxFuelCount);
-        UIManager.Instance.ShowDurCountUI(CooperIngotCount, MaxCooperCount, TitanumIngotCount, MaxTitanumCount);
+        UIManager.Instance.ShowDurCountUI(CooperIngotCount, MaxCooperCount, TitanumIngotCount, MaxTitanumCount, BatteryCount, MaxBatteryCount);
+
+        if (MaxBatteryCount <= 0 && MaxCooperCount <= 0 && MaxFuelCount <= 0 && MaxTitanumCount <= 0)
+        {
+            SceneManager.LoadScene("Clear");
+        }
     }
 }

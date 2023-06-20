@@ -9,8 +9,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI _outInfo;
-    [SerializeField] private TextMeshProUGUI _keyInfo;
+    public TextMeshProUGUI _outInfo;
+    public TextMeshProUGUI _keyInfo;
     [SerializeField] private TextMeshProUGUI _oxygenText;
     [SerializeField] private CanvasGroup _warnInfo;
     [SerializeField] private GameObject _inventoryPanel;
@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _fuelCountText;
     [SerializeField] private TextMeshProUGUI _ignotCountText01;
     [SerializeField] private TextMeshProUGUI _ignotCountText02;
+    [SerializeField] private TextMeshProUGUI _batteryCountText03;
     [SerializeField] private GameObject _01;
     [SerializeField] private GameObject _02;
 
@@ -50,6 +51,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float _fadeSpeed = 0.8f;
 
     private FirstPersonController _controller;
+
+    [SerializeField] private GameObject _tutorial;
+    [SerializeField] private CanvasGroup _settingPanel;
 
     private void Awake()
     {
@@ -73,7 +77,7 @@ public class UIManager : MonoBehaviour
         DurabilitySlider.fillAmount = DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability;
         _durabilityPercent.text = (DurabilitySystem.Instance.CurrentDurability / DurabilitySystem.Instance.MaxDurability).ToString("P0");
 
-        if (Input.GetKeyDown(KeyCode.Tab) && !PanelCheck01.activeInHierarchy && !PanelCheck02.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Tab) && !PanelCheck01.activeInHierarchy && !PanelCheck02.activeInHierarchy && !_tutorial.activeInHierarchy)
         {
             if (isShowing)
             {
@@ -92,6 +96,23 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) && !_settingPanel.gameObject.activeInHierarchy)
+        {
+            SoundManager.Instance.OnClick();
+            _settingPanel.gameObject.SetActive(true);
+            _controller.CanRotateCam = false;
+            _settingPanel.DOFade(1, 0.3f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && _settingPanel.gameObject.activeInHierarchy)
+        {
+            SoundManager.Instance.OnClick();
+            _controller.CanRotateCam = true;
+            _settingPanel.DOFade(0, 0.3f).OnComplete(() =>
+            {
+                _settingPanel.gameObject.SetActive(false);
+            });
+        }
+
         _inventoryCountText[0].text = InventoryManager.Instance.CooperCount.ToString();
         _inventoryCountText[1].text = InventoryManager.Instance.TitanumCount.ToString();
         _inventoryCountText[2].text = InventoryManager.Instance.CooperIngotCount.ToString();
@@ -103,6 +124,7 @@ public class UIManager : MonoBehaviour
         _inventoryCountText[8].text = InventoryManager.Instance.BatteryCount.ToString();
         _inventoryCountText[9].text = InventoryManager.Instance.IceCount.ToString();
         _inventoryCountText[10].text = InventoryManager.Instance.WaterCount.ToString();
+        _inventoryCountText[11].text = InventoryManager.Instance.WaterGunFishCount.ToString();
 
         SetProductCountUI();
 
@@ -190,7 +212,7 @@ public class UIManager : MonoBehaviour
         _countTexts[5].text = InventoryManager.Instance.PlasticBottleCount.ToString() + "/1";
 
         _countTexts[6].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/6";
-        _countTexts[7].text = InventoryManager.Instance.BatteryCount.ToString() + "/1";
+        _countTexts[7].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/12";
         _countTexts[8].text = InventoryManager.Instance.TitanumIngotCount.ToString() + "/24";
         _countTexts[9].text = InventoryManager.Instance.BatteryCount.ToString() + "/2";
         _countTexts[10].text = InventoryManager.Instance.CooperIngotCount.ToString() + "/9";
@@ -212,10 +234,14 @@ public class UIManager : MonoBehaviour
         _fuelCountText.text = "연료 넣기 " + count.ToString() + "/" + max.ToString();
     }
 
-    public void ShowDurCountUI(int count, int max, int value, int maxvalue)
+    public void ShowDurCountUI(int count, int max, int value, int maxvalue, int bat, int maxbat)
     {
         _ignotCountText01.text = count.ToString() + "/" + max.ToString();
         _ignotCountText02.text = value.ToString() + "/" + maxvalue.ToString();
+        if (InventoryManager.Instance.MaxBatteryCount >= 0)
+        {
+            _batteryCountText03.text = bat.ToString() + "/" + maxbat.ToString();
+        }    
     }
 
     public void ShowInfo(TextMeshPro text, TextMeshPro name)

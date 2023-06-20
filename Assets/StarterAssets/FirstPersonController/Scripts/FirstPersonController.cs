@@ -163,7 +163,7 @@ namespace StarterAssets
 				Move();
 			UpDownInZeroGravity();
 			SetParent();
-			ReturnToHome();
+			ReturnToHome(true);
 			//PickupAnimation();
 
 			//if (Input.GetKeyDown(KeyCode.F))
@@ -288,12 +288,29 @@ namespace StarterAssets
 			_animator.SetTrigger(_animIDSwing);
 		}
 
-		private void ReturnToHome()
+		public void DisableGlider()
+        {
+			_glider.Disable();
+		}
+
+		public void ReturnToHome(bool value)
 		{
 			float dis = Vector3.Distance(_whalePos.position, transform.position);
 
-			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
-			{
+			if (value)
+            {
+				if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
+				{
+					enableGlider = false;
+					transform.DOMove(_homePos.position, dis / 20);
+					Gravity = -15;
+					_glider.Disable();
+
+					if (Grounded) _glider.Disable();
+				}
+			}
+            else
+            {
 				enableGlider = false;
 				transform.DOMove(_homePos.position, dis / 20);
 				Gravity = -15;
@@ -307,7 +324,7 @@ namespace StarterAssets
 		public bool isZeroGravity = false;
 		bool enableGlider = false;
 
-		[SerializeField] private float zeroGravity = -0.01f;
+		public float zeroGravity = -0.01f;
 		[SerializeField] private float maxTime = 3f;
 
 		private void JumpAndGravity()
@@ -414,7 +431,7 @@ namespace StarterAssets
 			}
 		}
 
-		private void SetParent()
+		public void SetParent()
 		{
 			if (Grounded)
 				transform.SetParent(_whalePos);

@@ -21,12 +21,15 @@ public class CreatureManager : MonoBehaviour
     [SerializeField] private float _zPosRandMinValue = 100f;
     [SerializeField] private float _zPosRandMaxValue = 1200f;
 
+    [SerializeField] private float _xPosRandMinValue = -75f;
+    [SerializeField] private float _xposRandMaxValue = 75f;
+
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
 
-        float rotRand = Random.Range(-30, 30);
-        float posXRand = Random.Range(-30, 30);
+        float rotRand = Random.Range(_xPosRandMinValue, _xposRandMaxValue);
+        float posXRand = Random.Range(-75, 70);
         float posYRand = Random.Range(30, 70);
         float posZRand = Random.Range(_zPosRandMinValue, _zPosRandMaxValue);
         this.transform.rotation = Quaternion.Euler(new Vector3(0, rotRand, 0));

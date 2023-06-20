@@ -23,6 +23,8 @@ public class ShowTextInfo : MonoBehaviour
 
     [SerializeField] private GameObject[] _check;
 
+    [SerializeField] private TutorialManager _tutorial;
+
     public bool isShowing = false;
 
     private void Awake()
@@ -43,12 +45,13 @@ public class ShowTextInfo : MonoBehaviour
             {
                 if (isShowing)
                 {
-                    UIManager.Instance.OffInfo(_text, _name);
+                    UIManager.Instance.OffInfo(_text, _name);                
                     Init();
                 }
                 else
                 {
                     _table.SetActive(false);
+                    
                     _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
                     {
                         isShowing = true;

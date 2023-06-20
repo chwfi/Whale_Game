@@ -81,10 +81,10 @@ public class ProductManager : MonoBehaviour
 
         if (productNum == 5)
         {
-            if (InventoryManager.Instance.TitanumIngotCount >= 6 && InventoryManager.Instance.BatteryCount >= 1)
+            if (InventoryManager.Instance.TitanumIngotCount >= 6 && InventoryManager.Instance.CooperIngotCount >= 12)
             {
                 InventoryManager.Instance.TitanumIngotCount -= 6;
-                InventoryManager.Instance.BatteryCount -= 1;
+                InventoryManager.Instance.CooperIngotCount -= 12;
                 InventoryManager.Instance.LowTankCount += 1;
                 EquipmentManager.Instance.ChangeTopEquipment(_equipmentIcons[0], "저용량 산소탱크");
                 PlayerStatManager.Instance.PlayerStats.MaxOxygen += 25;

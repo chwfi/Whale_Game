@@ -1777,8 +1777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _giantSo: {fileID: 11400000, guid: 09c0ca0d0c6f8c741a9a4b33d8a6df38, type: 2}
   _distance: 50
-  _attackDistance: 31
-  _checkDistance: 24
+  _attackDistance: 33
+  _checkDistance: 25
   isAttack: 0
   isInRange: 0
   _attackCoolTime: 3

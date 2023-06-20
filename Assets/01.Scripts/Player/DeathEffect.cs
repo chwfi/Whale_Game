@@ -13,9 +13,9 @@ public class DeathEffect : MonoBehaviour
 
     public float returnDuration = 1f;
 
-    [SerializeField] private float startIntensity = 0f;
+    [SerializeField] private float startIntensity = 0.2f;
     private float targetIntensity = 1f;
-    [SerializeField] private float currentIntensity = 0f;
+    [SerializeField] private float currentIntensity = 0.2f;
     private float transitionTimer = 0f;
 
     public bool canEffect = false;
@@ -43,7 +43,7 @@ public class DeathEffect : MonoBehaviour
             {
                 vignette.intensity.value = targetIntensity;
                 transitionTimer = 0;
-                currentIntensity = 0;
+                currentIntensity = 0.2f;
                 canEffect = false;
             }
         }
@@ -51,8 +51,8 @@ public class DeathEffect : MonoBehaviour
         {
             canEffect = false;
             transitionTimer = 0;
-            currentIntensity = 0;
-            vignette.intensity.value = 0;
+            currentIntensity = 0.2f;
+            vignette.intensity.value = 0.2f;
         }
             
     }
