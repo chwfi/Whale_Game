@@ -39,10 +39,13 @@ public class DurabilitySystem : MonoBehaviour
             CurrentDurability += value;
             InventoryManager.Instance.CooperIngotCount -= 1;
             InventoryManager.Instance.TitanumIngotCount -= 1;
-            InventoryManager.Instance.BatteryCount -= 1;
             InventoryManager.Instance.MaxCooperCount -= 1;
             InventoryManager.Instance.MaxTitanumCount -= 1;
-            InventoryManager.Instance.MaxBatteryCount -= 1;
+            if (InventoryManager.Instance.MaxBatteryCount > 0)
+            {
+                InventoryManager.Instance.MaxBatteryCount -= 1;
+                InventoryManager.Instance.BatteryCount -= 1;
+            }
         }
 
         if (CurrentDurability >= MaxDurability)

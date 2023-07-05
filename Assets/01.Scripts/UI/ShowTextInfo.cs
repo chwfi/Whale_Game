@@ -45,11 +45,13 @@ public class ShowTextInfo : MonoBehaviour
             {
                 if (isShowing)
                 {
+                    SoundManager.Instance.OnPopup();
                     UIManager.Instance.OffInfo(_text, _name);                
                     Init();
                 }
                 else
                 {
+                    SoundManager.Instance.OnPopup();
                     _table.SetActive(false);
                     
                     _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>

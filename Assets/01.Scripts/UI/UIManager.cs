@@ -81,12 +81,14 @@ public class UIManager : MonoBehaviour
         {
             if (isShowing)
             {
+                SoundManager.Instance.OnPopup();
                 //OffInfo(_text, _name);
                 _arm.SetActive(true);
                 Init();
             }
             else
             {
+                SoundManager.Instance.OnPopup();
                 _arm.SetActive(false);
                 _inventoryPanel.transform.DOLocalRotateQuaternion(Quaternion.Euler(new Vector3(-5, 180, 0)), 0.25f).OnComplete(() =>
                 {
@@ -105,12 +107,7 @@ public class UIManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && _settingPanel.gameObject.activeInHierarchy)
         {
-            SoundManager.Instance.OnClick();
-            _controller.CanRotateCam = true;
-            _settingPanel.DOFade(0, 0.3f).OnComplete(() =>
-            {
-                _settingPanel.gameObject.SetActive(false);
-            });
+            OffEscPanel();
         }
 
         _inventoryCountText[0].text = InventoryManager.Instance.CooperCount.ToString();
@@ -136,6 +133,16 @@ public class UIManager : MonoBehaviour
         {
             _02.SetActive(false);
         }
+    }
+
+    public void OffEscPanel()
+    {
+        SoundManager.Instance.OnClick();
+        _controller.CanRotateCam = true;
+        _settingPanel.DOFade(0, 0.3f).OnComplete(() =>
+        {
+            _settingPanel.gameObject.SetActive(false);
+        });
     }
 
     public void ShowProductPanel01()

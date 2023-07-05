@@ -82,11 +82,11 @@ public class PlayerStatManager : MonoBehaviour
 
     private void IncreaseStats()
     {
-        if (_currentOxygen > _playerStats.MaxOxygen) return;
-        if (_currentHp > _playerStats.MaxHp) return;
+        //if (_currentOxygen > _playerStats.MaxOxygen) return;
+        //if (_currentHp > _playerStats.MaxHp) return;
         if (_currentHunger <= 0 || _currentMana <= 0) return;
 
-        if (grounded)
+        if (grounded && _currentOxygen < _playerStats.MaxOxygen)
         {       
             _currentOxygen += Time.unscaledDeltaTime * _increaseSpeed;
             if (_currentOxygen >= _playerStats.MaxOxygen) _currentHp += Time.deltaTime * _increaseSpeed;
@@ -149,6 +149,7 @@ public class PlayerStatManager : MonoBehaviour
         if (value == 75)
         {
             if (InventoryManager.Instance.FishCount <= 0) return;
+            SoundManager.Instance.EatFood();
             _currentHunger += value;
             _currentMana += value / 2;
             InventoryManager.Instance.FishCount -= 1;
@@ -157,6 +158,7 @@ public class PlayerStatManager : MonoBehaviour
         else if (value == 90)
         {
             if (InventoryManager.Instance.WaterGunFishCount <= 0) return;
+            SoundManager.Instance.EatFood();
             _currentHunger += value;
             _currentMana += value / 2;
             InventoryManager.Instance.WaterGunFishCount -= 1;
@@ -166,7 +168,7 @@ public class PlayerStatManager : MonoBehaviour
     public void IncreaseMana(float value)
     {
         if (InventoryManager.Instance.WaterCount <= 0) return;
-
+        SoundManager.Instance.DrinkWater();
         _currentMana += value;
         InventoryManager.Instance.WaterCount -= 1;
     }
@@ -184,7 +186,6 @@ public class PlayerStatManager : MonoBehaviour
 
     private void OnDead()
     {
-        Debug.Log("»ç¸Á");
         OnDeadTrigger?.Invoke();
     }
 }

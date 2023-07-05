@@ -163,13 +163,7 @@ namespace StarterAssets
 				Move();
 			UpDownInZeroGravity();
 			SetParent();
-			ReturnToHome(true);
-			//PickupAnimation();
-
-			//if (Input.GetKeyDown(KeyCode.F))
-   //         {
-			//	_animator.SetTrigger(_animIDPickup);
-   //         }
+			ReturnToHome();
 
             if (isZeroGravity)
                 _animator.SetBool(_animIDSwim, true);
@@ -278,14 +272,9 @@ namespace StarterAssets
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
-		public void PickupAnimation()
+		public void PickupAnimation(bool value)
         {
-			_animator.SetTrigger(_animIDPickup);
-		}
-
-		public void SwingHammerAnimation()
-		{
-			_animator.SetTrigger(_animIDSwing);
+			_animator.SetBool(_animIDPickup, value);
 		}
 
 		public void DisableGlider()
@@ -293,27 +282,17 @@ namespace StarterAssets
 			_glider.Disable();
 		}
 
-		public void ReturnToHome(bool value)
+		public void ReturnToHome()
 		{
 			float dis = Vector3.Distance(_whalePos.position, transform.position);
 
-			if (value)
-            {
-				if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
-				{
-					enableGlider = false;
-					transform.DOMove(_homePos.position, dis / 20);
-					Gravity = -15;
-					_glider.Disable();
-
-					if (Grounded) _glider.Disable();
-				}
-			}
-            else
-            {
+			if (Input.GetKeyDown(KeyCode.G) && isZeroGravity)
+			{
 				enableGlider = false;
 				transform.DOMove(_homePos.position, dis / 20);
-				Gravity = -15;
+				//Gravity = -15;
+				if (InventoryManager.Instance.GliderCount >= 1)
+					SoundManager.Instance.EngineOff();
 				_glider.Disable();
 
 				if (Grounded) _glider.Disable();
@@ -347,6 +326,7 @@ namespace StarterAssets
 					Gravity = zeroGravity;
 				if (InventoryManager.Instance.GliderCount >= 1 && enableGlider)
                 {
+					SoundManager.Instance.EngineOnAndRun();
 					_glider.Enable();
 					Arm.SetActive(false);
                 }

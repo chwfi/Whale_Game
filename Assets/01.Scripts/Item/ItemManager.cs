@@ -94,8 +94,9 @@ public class ItemManager : MonoBehaviour
 
     private IEnumerator CollectResoruces()
     {
-        _player.PickupAnimation();
+        _player.PickupAnimation(true);
         yield return new WaitForSeconds(_collectCooltime);
+        SoundManager.Instance.OnPickUp();
         InventoryManager.Instance.Add(Item);
         Destroy(this.gameObject);
     }
