@@ -30,6 +30,9 @@ public class DurabilitySystem : MonoBehaviour
     public void Decrease(float durab)
     {
         CurrentDurability -= durab;
+        InventoryManager.Instance.MaxBatteryCount += 1;
+        InventoryManager.Instance.MaxCooperCount += 5;
+        InventoryManager.Instance.MaxTitanumCount += 5;
     }
 
     public void PlusDutability(float value)

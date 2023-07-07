@@ -32,6 +32,8 @@ public class InventoryManager : MonoBehaviour
 
     public int WaterCount;
 
+    public int ExplosiveCount;
+
     public int MaxFuelCount = 20;
 
     public int MaxCooperCount = 50;

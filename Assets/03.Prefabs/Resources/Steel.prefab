@@ -505,6 +505,6 @@ MonoBehaviour:
   _zPosRandMaxValue: 1500
   _xMinValue: -325
   _xMaxValue: 385
-  _xLimit: 250
+  _xLimit: 215
   _yPosRandMinValue: 20
   _yPosRandMaxValue: 80

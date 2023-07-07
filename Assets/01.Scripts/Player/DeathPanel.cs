@@ -24,18 +24,19 @@ public class DeathPanel : MonoBehaviour
 
     public void Enabled()
     {
-        _panel.DOFade(1, 0.5f);
-        Invoke("Resume", 3.5f);
+        _panel.DOFade(1, 1.8f).OnComplete(() =>
+        {
+            Resume();
+        });
+        
     }
 
     private void Resume()
     {
         PlayerStatManager.Instance.Init();
-        _playerTrm.transform.position = new Vector3(_startPos.transform.position.x, _startPos.transform.position.y - 0.08f, _startPos.transform.position.z);
-        _controller.Gravity = -12;
-        _controller.isZeroGravity = false;
-        _controller.zeroGravity = 0.01f;
         _controller.Grounded = true;
+        _playerTrm.transform.position = new Vector3(_startPos.transform.position.x, _startPos.transform.position.y - 0.25f, _startPos.transform.position.z);
+        _controller.isZeroGravity = false;
         _controller.DisableGlider();
         _panel.DOFade(0, 0.5f).OnComplete(() =>
         {

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI _keyInfo;
     [SerializeField] private TextMeshProUGUI _oxygenText;
     [SerializeField] private CanvasGroup _warnInfo;
+    [SerializeField] private TextMeshProUGUI[] _warnInfoText;
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private TextMeshProUGUI[] _inventoryCountText;
     [SerializeField] private GameObject _arm;
@@ -44,6 +45,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _batteryCountText03;
     [SerializeField] private GameObject _01;
     [SerializeField] private GameObject _02;
+
+    [Header("WarningBar")]
+    [SerializeField] private CanvasGroup _warningBar02;
 
     public bool isShowing = false;
 
@@ -123,6 +127,8 @@ public class UIManager : MonoBehaviour
         _inventoryCountText[10].text = InventoryManager.Instance.WaterCount.ToString();
         _inventoryCountText[11].text = InventoryManager.Instance.WaterGunFishCount.ToString();
 
+        _inventoryCountText[12].text = InventoryManager.Instance.ExplosiveCount.ToString();
+
         SetProductCountUI();
 
         if (InventoryManager.Instance.MaxFuelCount <= 0)
@@ -144,6 +150,8 @@ public class UIManager : MonoBehaviour
             _settingPanel.gameObject.SetActive(false);
         });
     }
+
+    
 
     public void ShowProductPanel01()
     {
@@ -188,7 +196,17 @@ public class UIManager : MonoBehaviour
 
     public void ShowWarningText(int value)
     {
-        _warnInfo.DOFade(value, 1); 
+        _warnInfo.DOFade(value, 1);
+    }
+
+    public void SetWarningText(string text, int num)
+    {
+        _warnInfoText[num].text = text;
+    }
+
+    public void ShowWarningText02(int value)
+    {
+        _warningBar02.DOFade(value, 1);
     }
 
     public void ShowInventoryUI()

@@ -8,6 +8,8 @@ TagManager:
   - Rock
   - Gun
   - Whale
+  - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX

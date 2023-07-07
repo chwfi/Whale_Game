@@ -323,6 +323,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bfc5803fa8fa8924bbeaa34f4f689bb1, type: 3}
   - {fileID: 8300000, guid: a6473f5264a14804e992a7a4a29cd744, type: 3}
   _backgroundMusic: {fileID: 8300000, guid: 3fffd8cd8d07eba4bb413293cbd7e0d4, type: 3}
+  _howlingMinValue: 0
+  _howlingMaxValue: 0
 --- !u!4 &42280386
 Transform:
   m_ObjectHideFlags: 0

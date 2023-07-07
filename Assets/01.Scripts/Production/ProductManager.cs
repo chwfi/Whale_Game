@@ -25,11 +25,13 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.CooperCount >= 3)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.CooperCount -= 3;
                 InventoryManager.Instance.CooperIngotCount += 1;
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -39,11 +41,13 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.TitanumCount >= 3)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.TitanumCount -= 3;
                 InventoryManager.Instance.TitanumIngotCount += 1;
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -53,12 +57,14 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.CooperIngotCount >= 2 && InventoryManager.Instance.TitanumIngotCount >= 1)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.CooperIngotCount -= 2;
                 InventoryManager.Instance.TitanumIngotCount -= 1;
                 InventoryManager.Instance.SolutionCount += 1;
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -68,12 +74,14 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.SolutionCount >= 2 && InventoryManager.Instance.PlasticBottleCount >= 1)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.SolutionCount -= 2 ;
                 InventoryManager.Instance.PlasticBottleCount -= 1;
                 InventoryManager.Instance.FuelCount += 1;
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -83,6 +91,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.TitanumIngotCount >= 6 && InventoryManager.Instance.CooperIngotCount >= 12)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.TitanumIngotCount -= 6;
                 InventoryManager.Instance.CooperIngotCount -= 12;
                 InventoryManager.Instance.LowTankCount += 1;
@@ -92,6 +101,7 @@ public class ProductManager : MonoBehaviour
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -101,6 +111,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.TitanumIngotCount >= 24 && InventoryManager.Instance.BatteryCount >= 2)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.TitanumIngotCount -= 24;
                 InventoryManager.Instance.BatteryCount -= 2;
                 InventoryManager.Instance.HighTankCount += 1;
@@ -111,6 +122,7 @@ public class ProductManager : MonoBehaviour
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -120,6 +132,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.CooperIngotCount >= 9 && InventoryManager.Instance.TitanumIngotCount >= 6)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.CooperIngotCount -= 9;
                 InventoryManager.Instance.TitanumIngotCount -= 6;
                 InventoryManager.Instance.FlipperCount += 1;
@@ -130,6 +143,7 @@ public class ProductManager : MonoBehaviour
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -139,6 +153,7 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.TitanumIngotCount >= 30 && InventoryManager.Instance.BatteryCount >= 3)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.TitanumIngotCount -= 30;
                 InventoryManager.Instance.BatteryCount -= 3;
                 InventoryManager.Instance.GliderCount += 1;
@@ -150,6 +165,7 @@ public class ProductManager : MonoBehaviour
             }
             else
             {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }
@@ -159,12 +175,31 @@ public class ProductManager : MonoBehaviour
         {
             if (InventoryManager.Instance.IceCount >= 1 && InventoryManager.Instance.PlasticBottleCount >= 1)
             {
+                SoundManager.Instance.Hammering();
                 InventoryManager.Instance.IceCount -= 1;
                 InventoryManager.Instance.PlasticBottleCount -= 1;
                 InventoryManager.Instance.WaterCount += 1;
             }
             else
             {
+                SoundManager.Instance.OnClick();
+                UIManager.Instance.ShowProductWarnText(true);
+                Invoke("DisableWarning", 1f);
+            }
+        }
+
+        if (productNum == 10)
+        {
+            if (InventoryManager.Instance.IceCount >= 3 && InventoryManager.Instance.FuelCount >= 1)
+            {
+                SoundManager.Instance.Hammering();
+                InventoryManager.Instance.IceCount -= 3;
+                InventoryManager.Instance.FuelCount -= 1;
+                InventoryManager.Instance.ExplosiveCount += 1;
+            }
+            else
+            {
+                SoundManager.Instance.OnClick();
                 UIManager.Instance.ShowProductWarnText(true);
                 Invoke("DisableWarning", 1f);
             }

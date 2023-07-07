@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
         _backAudioSource.clip = _backgroundMusic;
         _backAudioSource.Play();
 
-        StartCoroutine(HowlingSound());
+        //StartCoroutine(HowlingSound());
     }
 
     private IEnumerator HowlingSound()
@@ -75,5 +75,15 @@ public class SoundManager : MonoBehaviour
     public void DrinkWater()
     {
         _effectAudioSource.PlayOneShot(_clips[8]);
+    }
+
+    public void Hammering()
+    {
+        _effectAudioSource.PlayOneShot(_clips[9]);
+    }
+
+    public void OnCrash()
+    {
+        _effectAudioSource.PlayOneShot(_clips[10]);
     }
 }

@@ -78,6 +78,11 @@ public class PlayerStatManager : MonoBehaviour
         DecreaseMana();
         DecreaseOxygen();
         IncreaseStats();
+
+        if (grounded)
+        {
+            if (_currentOxygen >= _playerStats.MaxOxygen) _currentHp += Time.deltaTime * _increaseSpeed;
+        }
     }
 
     private void IncreaseStats()
@@ -89,7 +94,6 @@ public class PlayerStatManager : MonoBehaviour
         if (grounded && _currentOxygen < _playerStats.MaxOxygen)
         {       
             _currentOxygen += Time.unscaledDeltaTime * _increaseSpeed;
-            if (_currentOxygen >= _playerStats.MaxOxygen) _currentHp += Time.deltaTime * _increaseSpeed;
         }
     }
 
@@ -179,9 +183,43 @@ public class PlayerStatManager : MonoBehaviour
         UIManager.Instance.SetOxygenText(_currentOxygen);
 
         if (_currentOxygen <= 25)
+        {
             UIManager.Instance.ShowWarningText(1);
-        else
-            UIManager.Instance.ShowWarningText(0);
+            UIManager.Instance.SetWarningText("- 산소 부족", 0);
+        }
+        else if (_currentOxygen > 25) 
+        {
+            UIManager.Instance.SetWarningText("", 0);
+            if (_currentHunger > 90 && _currentHunger > 100)
+                UIManager.Instance.ShowWarningText(0);
+        }
+        else if (_currentOxygen > 25 && _currentMana > 100 && _currentHunger > 90) UIManager.Instance.ShowWarningText(0);
+
+        if (_currentHunger <= 90)
+        {
+            UIManager.Instance.ShowWarningText(1);
+            UIManager.Instance.SetWarningText("- 허기", 1);
+        }        
+        else if (_currentHunger > 90)
+        {
+            UIManager.Instance.SetWarningText("", 1);
+            if (_currentMana > 100 && _currentOxygen > 25)
+                UIManager.Instance.ShowWarningText(0);
+        }
+        else if (_currentOxygen > 25 && _currentMana > 100 && _currentHunger > 90) UIManager.Instance.ShowWarningText(0);
+
+        if (_currentMana <= 100)
+        {
+            UIManager.Instance.ShowWarningText(1);
+            UIManager.Instance.SetWarningText("- 갈증", 2);
+        }
+        else if (_currentMana > 100)
+        {
+            UIManager.Instance.SetWarningText("", 2);
+            if (_currentHunger > 90 && _currentOxygen > 25)
+                UIManager.Instance.ShowWarningText(0);
+        }
+        else if (_currentOxygen > 25 && _currentMana > 100 && _currentHunger > 90) UIManager.Instance.ShowWarningText(0);
     }
 
     private void OnDead()

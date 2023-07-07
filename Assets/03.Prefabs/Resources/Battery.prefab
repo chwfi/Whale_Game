@@ -59,7 +59,7 @@ MonoBehaviour:
   _zPosRandMaxValue: 1500
   _xMinValue: -400
   _xMaxValue: 400
-  _xLimit: 320
+  _xLimit: 310
   _yPosRandMinValue: 20
   _yPosRandMaxValue: 80
 --- !u!1 &3497633167967240406
