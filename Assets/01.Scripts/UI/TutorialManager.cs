@@ -8,6 +8,7 @@ using DG.Tweening;
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private Image _tutorialPanel;
+    [SerializeField] private Image _infoPanel;
     [SerializeField] private float _waitTime = 4f;
 
     [SerializeField] private TextMeshProUGUI _text;
@@ -34,7 +35,16 @@ public class TutorialManager : MonoBehaviour
             UIManager.Instance._keyInfo.gameObject.SetActive(true);
             _skipButton.gameObject.SetActive(false);
             return;
-        } 
+        }
+
+        if (num == 3)
+        {
+            _infoPanel.rectTransform.DOScaleY(1, 0.5f);
+        }
+        else
+        {
+            _infoPanel.rectTransform.DOScaleY(0, 0.5f);
+        }
 
         _text.text = _texts[num];
     }
@@ -62,7 +72,7 @@ public class TutorialManager : MonoBehaviour
 
     public void Skip()
     {
-        num = 7;
+        num = 8;
         FoldPanel();
         _fadePanel.gameObject.SetActive(true);
         _skipButton.rectTransform.DOScaleY(0, 0.5f).OnComplete(() =>

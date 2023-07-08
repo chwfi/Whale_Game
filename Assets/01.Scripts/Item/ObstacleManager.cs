@@ -18,6 +18,7 @@ public class ObstacleManager : MonoBehaviour
 
     [SerializeField] private TextMeshPro _text;
     [SerializeField] private TextMeshPro _name;
+    [SerializeField] private TextMeshPro _count;
 
     [SerializeField] private float _zPosRandMinValue = 100f;
     [SerializeField] private float _zPosRandMaxValue = 1200f;
@@ -31,13 +32,16 @@ public class ObstacleManager : MonoBehaviour
     private float _posZRand;
 
     [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private ParticleSystem _destroyParticle;
 
     Rigidbody _rigid;
+    ObjectFadeOut _objectFadeOut;
 
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<FirstPersonController>();
 
+        _objectFadeOut = GetComponentInChildren<ObjectFadeOut>();
         _rigid = GetComponent<Rigidbody>();
         _particle = GetComponentInChildren<ParticleSystem>();
         _posXRand = Random.Range(_xPosRandMinValue, _xPosRandMaxValue);
@@ -51,6 +55,8 @@ public class ObstacleManager : MonoBehaviour
     private void Update()
     {
         ResourceMining();
+
+        _text.text = "가까이서 F키를 눌러\n폭발물 부착하여 제거\n" + "현재 폭발물 개수 : " + InventoryManager.Instance.ExplosiveCount.ToString();
     }
 
     private void ResourceMining()
@@ -60,7 +66,12 @@ public class ObstacleManager : MonoBehaviour
             UIManager.Instance.ShowInfo(_text, _name);
 
             if (Vector3.Distance(transform.position, _player.gameObject.transform.position) <= _mineMaxdis && Input.GetKeyDown(KeyCode.F))
-                StartCoroutine(CollectResoruces());
+            {
+                if (InventoryManager.Instance.ExplosiveCount >= 1)
+                {
+                    StartCoroutine(CollectResoruces());
+                }
+            }          
         }
         else
             UIManager.Instance.OffInfo(_text, _name);
@@ -69,9 +80,26 @@ public class ObstacleManager : MonoBehaviour
     private IEnumerator CollectResoruces()
     {
         _player.PickupAnimation(true);
+        InventoryManager.Instance.ExplosiveCount -= 1;
         yield return new WaitForSeconds(_collectCooltime);
-        SoundManager.Instance.OnPickUp();
-        Destroy(this.gameObject);
+        StartCoroutine(SetTimer());
+    }
+
+    private IEnumerator SetTimer()
+    {
+        while (true)
+        {
+            for (int i = 5; i > 0; i--)
+            {
+                _text.text = $"{i}초 후 폭발합니다.";
+                yield return new WaitForSeconds(1f);
+            }
+
+            SoundManager.Instance.OnCrash();
+            _objectFadeOut.FadeOut();
+            _destroyParticle.Play();
+            //Invoke("DestroyObj", 1f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -89,5 +117,13 @@ public class ObstacleManager : MonoBehaviour
     private void Destroy()
     {
         _particle.Stop();
+    }
+
+    private void DestroyObj()
+    {
+        _text.text = "";
+        _name.text = "";
+        _destroyParticle.Stop();
+        Destroy(this.gameObject);
     }
 }

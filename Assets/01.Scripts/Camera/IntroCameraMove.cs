@@ -13,7 +13,7 @@ public class IntroCameraMove : MonoBehaviour
 
     private void Start()
     {
-        transform.DOMove(_destination.transform.position, 46f).OnComplete(() =>
+        transform.DOMove(_destination.transform.position, 53f).OnComplete(() =>
         {
             _nextCam.DoAction();
             gameObject.SetActive(false);
