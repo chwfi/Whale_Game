@@ -7,6 +7,6 @@
 | 개발 기간  | 2023년 6월 ~ 7월 (약 4주)  |
 | 개발 인원  | 1명  |
 
-![스크린샷 2023-07-10 141157](https://github.com/chwfi/Whale_Game/assets/98933635/30dc0fa6-ab2c-4620-bc47-3414c37a4d01)
-
 상세한 포트폴리오 링크 -> https://wonseok1112.tistory.com/11
+
+![스크린샷 2023-07-10 141157](https://github.com/chwfi/Whale_Game/assets/98933635/30dc0fa6-ab2c-4620-bc47-3414c37a4d01)
